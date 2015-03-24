@@ -15,7 +15,7 @@ public class DrawableObject {
 		super();
 		this.vaoId = vaoId;
 		this.vboId = vboId;
-		this.vboId = vboiId;
+		this.vboiId = vboiId;
 		this.nbIndices = nbIndices;
 		this.components = new ArrayList<DrawableComponent>();
 	}
