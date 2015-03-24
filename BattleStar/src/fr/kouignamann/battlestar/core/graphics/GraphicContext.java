@@ -75,11 +75,8 @@ public class GraphicContext {
     
     public static void compute() {
         GraphicContext.checkInstance();
-           
         instance.camera.compute();
-        
         ShaderContext.pushCameraMatrices(instance.camera);
-        
         GraphicContext.exitOnGLError("logicCycle");
     }
 	
@@ -105,28 +102,29 @@ public class GraphicContext {
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, drawable.getVboiId());
         
         for (DrawableComponent component : drawable.getComponents()) {
-	        GL11.glBindTexture(GL11.GL_TEXTURE_2D, component.getTextureId());
+        	TextureContext.bindTexture(component.getTextureId());
 			if (DrawStyle.TRIANGLES.equals(component.getDrawStyle())) {
 				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-//				GL12.glDrawRangeElements(
-//						component.getDrawStyle().getNativeValue(),
-//						component.getStartIndex(),
-//						component.getStartIndex()+component.getNbVertice(),
-//						15000, GL11.GL_UNSIGNED_INT, 0);
 			}
-//			if (DrawStyle.QUADS.equals(component.getDrawStyle())) {
-//				GL11.glDrawElements(component.getDrawStyle().getNativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-//			}
-//			if (DrawStyle.POLYGON.equals(component.getDrawStyle())) {
-//				GL11.glDrawElements(component.getDrawStyle().getNativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-//			}
+			if (DrawStyle.QUADS.equals(component.getDrawStyle())) {
+				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
+			}
+			if (DrawStyle.POLYGON.equals(component.getDrawStyle())) {
+				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
+			}
         }
+        
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);
         GL20.glDisableVertexAttribArray(3);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
         GL30.glBindVertexArray(0);
+	}
+	
+	public static void addDrawable(DrawableObject drawable) {
+		checkInstance();
+		instance.drawables.add(drawable);
 	}
 
     public static void exitOnGLError(String errorMessage) {

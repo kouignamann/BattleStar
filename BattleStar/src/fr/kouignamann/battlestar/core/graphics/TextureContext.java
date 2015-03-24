@@ -48,7 +48,7 @@ public class TextureContext {
 		instance.textures.remove(textureId);
 	}
 	
-	public static void glBindTexture(String textureId) {
+	public static void bindTexture(String textureId) {
 		checkInstance();
 		if (!instance.textures.containsKey(textureId)) {
 			throw new IllegalArgumentException("glBindTexture : No texture is bound to the id -> " + textureId);

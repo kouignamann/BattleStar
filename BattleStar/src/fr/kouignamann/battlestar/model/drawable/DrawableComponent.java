@@ -2,12 +2,12 @@ package fr.kouignamann.battlestar.model.drawable;
 
 public class DrawableComponent {
 	
-	private int textureId;
+	private String textureId;
 	private int startIndex;
 	private int nbVertice;
 	private DrawStyle drawStyle;
 	
-	public DrawableComponent(DrawStyle drawStyle, int textureId, int startIndex, int nbVertice) {
+	public DrawableComponent(DrawStyle drawStyle, String textureId, int startIndex, int nbVertice) {
 		super();
 		this.drawStyle = drawStyle;
 		this.textureId = textureId;
@@ -15,7 +15,7 @@ public class DrawableComponent {
 		this.nbVertice = nbVertice;
 	}
 	
-	public int getTextureId() {
+	public String getTextureId() {
 		return textureId;
 	}
 	public int getStartIndex() {

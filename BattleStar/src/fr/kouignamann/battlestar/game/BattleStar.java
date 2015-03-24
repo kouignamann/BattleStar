@@ -3,6 +3,7 @@ package fr.kouignamann.battlestar.game;
 import org.lwjgl.opengl.Display;
 
 import fr.kouignamann.battlestar.core.graphics.GraphicContext;
+import fr.kouignamann.battlestar.test.TestLoader;
 
 public class BattleStar {
 
@@ -10,6 +11,8 @@ public class BattleStar {
 		super();
 		
 		GraphicContext.init();
+		
+		TestLoader.loadTestObject();
 		
 		while(!Display.isCloseRequested()) {
 			GraphicContext.draw();

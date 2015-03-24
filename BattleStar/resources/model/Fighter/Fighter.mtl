@@ -1,0 +1,9 @@
+newmtl skin
+d 1
+Ns 0.75
+Ni 0
+Ka 0 0 0
+Kd 1 1 0
+Ks 1 1 1
+Km 0
+map_Kd /fighter.jpg
