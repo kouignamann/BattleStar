@@ -35,7 +35,6 @@ public class Controlers {
         instance.listeners.clear();
         instance.listeners.add(new KeyboardListener());
         instance.listeners.add(new MouseListener());
-//        instance.listeners.add(new LeapListener());
     }
     
     public static void listen() {
