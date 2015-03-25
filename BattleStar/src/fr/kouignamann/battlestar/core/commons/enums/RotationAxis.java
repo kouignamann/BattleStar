@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package fr.kouignamann.battlestar.core.commons;
+package fr.kouignamann.battlestar.core.commons.enums;
 
 import org.lwjgl.util.vector.Vector3f;
 

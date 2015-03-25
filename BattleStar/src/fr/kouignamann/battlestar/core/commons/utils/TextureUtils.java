@@ -4,14 +4,17 @@
  * and open the template in the editor.
  */
 
-package fr.kouignamann.battlestar.core.graphics;
+package fr.kouignamann.battlestar.core.commons.utils;
 
 import de.matthiasmann.twl.utils.PNGDecoder;
 import de.matthiasmann.twl.utils.PNGDecoder.Format;
+import fr.kouignamann.battlestar.core.graphics.GraphicContext;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL30;
@@ -20,9 +23,9 @@ import org.lwjgl.opengl.GL30;
  *
  * @author guillaume
  */
-public class PNGTextureLoader {
+public class TextureUtils {
 
-    public static int loadTexture(String filename, int textureUnit) {
+    public static int loadTexturePNG(String filename, int textureUnit) {
         ByteBuffer buf = null;
         int tWidth = 0;
         int tHeight = 0;
@@ -66,7 +69,7 @@ public class PNGTextureLoader {
         return texId;
     }
     
-    private PNGTextureLoader() {
+    private TextureUtils() {
         super();
     }
     

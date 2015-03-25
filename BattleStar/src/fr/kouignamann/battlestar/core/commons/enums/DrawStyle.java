@@ -1,4 +1,4 @@
-package fr.kouignamann.battlestar.model.drawable;
+package fr.kouignamann.battlestar.core.commons.enums;
 
 import static org.lwjgl.opengl.GL11.GL_POLYGON;
 import static org.lwjgl.opengl.GL11.GL_QUADS;

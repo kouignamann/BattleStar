@@ -9,9 +9,9 @@ package fr.kouignamann.battlestar.model;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 
-import fr.kouignamann.battlestar.core.commons.RotationAxis;
+import fr.kouignamann.battlestar.core.commons.enums.RotationAxis;
 import static fr.kouignamann.battlestar.core.commons.GameConstant.*;
-import static fr.kouignamann.battlestar.core.commons.MathHelper.*;
+import static fr.kouignamann.battlestar.core.commons.utils.MathUtils.*;
 
 /**
  *

@@ -15,8 +15,6 @@ out vec2 pass_TextureCoord;
 smooth out vec3 vNormal;
 
 void main(void) {
-    gl_Position = in_Position;
-    // Override gl_Position with our new calculated position
     mat4 modelView = viewMatrix * modelMatrix;
     gl_Position = projectionMatrix * modelView * in_Position;
     

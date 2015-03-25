@@ -6,6 +6,8 @@ import java.util.Map;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
+import fr.kouignamann.battlestar.core.commons.utils.TextureUtils;
+
 public class TextureContext {
 	
 	private static TextureContext instance;
@@ -35,7 +37,7 @@ public class TextureContext {
 		if (instance.textures.containsKey(textureId)) {
 			throw new IllegalArgumentException("loadTexture : A texture with the same id has already been loaded -> " + textureId);
 		}
-		int handle = PNGTextureLoader.loadTexture(textureFilePath, GL13.GL_TEXTURE0);
+		int handle = TextureUtils.loadTexturePNG(textureFilePath, GL13.GL_TEXTURE0);
 		instance.textures.put(textureId, new Integer(handle));
 	}
 	

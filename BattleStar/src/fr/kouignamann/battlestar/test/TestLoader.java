@@ -11,9 +11,9 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
+import fr.kouignamann.battlestar.core.commons.enums.DrawStyle;
 import fr.kouignamann.battlestar.core.graphics.GraphicContext;
 import fr.kouignamann.battlestar.core.graphics.TextureContext;
-import fr.kouignamann.battlestar.model.drawable.DrawStyle;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
 import fr.kouignamann.battlestar.model.drawable.DrawableObject;
 import fr.kouignamann.battlestar.model.gl.Vertex;

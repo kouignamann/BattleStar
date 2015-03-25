@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-package fr.kouignamann.battlestar.core.commons;
+package fr.kouignamann.battlestar.core.commons.utils;
 
 /**
  *
  * @author Guillaume BERTRAND
  */
-public class MathHelper {
+public class MathUtils {
     
-    private MathHelper() {
+    private MathUtils() {
         super();
     }
     

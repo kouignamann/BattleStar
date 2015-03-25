@@ -17,8 +17,8 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 
+import fr.kouignamann.battlestar.core.commons.enums.DrawStyle;
 import fr.kouignamann.battlestar.model.Camera;
-import fr.kouignamann.battlestar.model.drawable.DrawStyle;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
 import fr.kouignamann.battlestar.model.drawable.DrawableObject;
 
@@ -88,8 +88,8 @@ public class GraphicContext {
         GL13.glActiveTexture(GL13.GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
         
+    	GL20.glUseProgram(ShaderContext.getHandle());
 		instance.drawables.stream().forEach(d -> drawObject(d));
-		
         GL20.glUseProgram(0);
 	}
 	

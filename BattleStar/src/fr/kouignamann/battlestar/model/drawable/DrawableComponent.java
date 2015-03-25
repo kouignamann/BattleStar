@@ -1,5 +1,7 @@
 package fr.kouignamann.battlestar.model.drawable;
 
+import fr.kouignamann.battlestar.core.commons.enums.DrawStyle;
+
 public class DrawableComponent {
 	
 	private String textureId;

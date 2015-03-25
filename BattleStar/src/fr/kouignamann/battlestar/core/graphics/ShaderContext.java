@@ -97,8 +97,9 @@ public class ShaderContext {
         GL20.glUseProgram(0);
     }
     
-    public static void useShader() {
-    	GL20.glUseProgram(instance.shaderId);
+    public static int getHandle() {
+    	checkInstance();
+    	return instance.shaderId;
     }
 	
 	public static void destroy() {
