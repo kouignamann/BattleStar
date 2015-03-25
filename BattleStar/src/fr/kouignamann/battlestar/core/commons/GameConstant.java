@@ -12,8 +12,8 @@ public class GameConstant {
     
     // CONTROLERS
     public final static long	KEY_HIT_COOLDOWN    = 200000000;
-    public final static float   WHEEL_SENSITIVITY   = 5.0f;
-    public final static float	MOUSE_SENSITIVITY   = 20.0f;
+    public final static float   WHEEL_SENSITIVITY   = 15.0f;
+    public final static float	MOUSE_SENSITIVITY   = 5.0f;
 
     private GameConstant() {
     	super();

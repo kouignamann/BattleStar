@@ -140,7 +140,10 @@ public class ObjUtils {
         			&& basicModel.mtl.get(facesKey).map_Kd.trim() != "") {
         		result.getTextures().put(facesKey, basicModel.mtl.get(facesKey).map_Kd);
         	}
-			System.out.println("component : " + facesKey + " / nb vert : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length);
+			System.out.println(
+					"component : " + facesKey
+					+ " / nb vert per mesh : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length
+					+ " / nb vert : " + basicModel.faces.get(facesKey).size());
         	basicModel.faces.get(facesKey).stream().forEach((face) -> {
     			Map<String, List<Integer>> indiceMapByComplexity = null;
     			if (face.vertexIndices.length == 3) {

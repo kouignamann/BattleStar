@@ -1,16 +1,24 @@
 package fr.kouignamann.battlestar.core.graphics;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-
-import fr.kouignamann.battlestar.core.commons.utils.TextureUtils;
+import org.newdawn.slick.opengl.TextureLoader;
 
 public class TextureContext {
 	
 	private static TextureContext instance;
+	
+	private static final String PNG_FILENAME_PATTERN = ".*(png|PNG)";
+	private static final String PNG_FILENAME_EXT = "PNG";
+	
+	private static final String JPG_FILENAME_PATTERN = ".*(jpg|JPG)";
+	private static final String JPG_FILENAME_EXT = "JPG";
 	
 	private Map<String, Integer> textures;
 	
@@ -37,7 +45,20 @@ public class TextureContext {
 		if (instance.textures.containsKey(textureId)) {
 			throw new IllegalArgumentException("loadTexture : A texture with the same id has already been loaded -> " + textureId);
 		}
-		int handle = TextureUtils.loadTexturePNG(textureFilePath, GL13.GL_TEXTURE0);
+		int handle = 0;
+		try {
+			if (Pattern.matches(PNG_FILENAME_PATTERN, textureFilePath)) {
+				handle = TextureLoader.getTexture(
+					PNG_FILENAME_EXT,
+					new FileInputStream(textureFilePath)).getTextureID();
+				
+			} else if (Pattern.matches(JPG_FILENAME_PATTERN, textureFilePath)) {
+				handle = TextureLoader.getTexture(
+					JPG_FILENAME_EXT,
+					new FileInputStream(textureFilePath)).getTextureID();
+			}
+		} catch (FileNotFoundException e) {e.printStackTrace();
+		} catch (IOException e) {e.printStackTrace();}
 		instance.textures.put(textureId, new Integer(handle));
 	}
 	
@@ -52,10 +73,12 @@ public class TextureContext {
 	
 	public static void bindTexture(String textureId) {
 		checkInstance();
-		if (!instance.textures.containsKey(textureId)) {
-			throw new IllegalArgumentException("glBindTexture : No texture is bound to the id -> " + textureId);
+		if (instance.textures.containsKey(textureId)) {
+			ShaderContext.pushUseTexture(true);
+	        GL11.glBindTexture(GL11.GL_TEXTURE_2D, instance.textures.get(textureId));
+		} else {
+			ShaderContext.pushUseTexture(false);
 		}
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, instance.textures.get(textureId));
 	}
 	
 	public static void destroy() {

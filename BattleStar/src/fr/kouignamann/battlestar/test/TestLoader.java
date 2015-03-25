@@ -66,28 +66,34 @@ public class TestLoader {
 		
 		Vertex v1 = new Vertex();
 		v1.setXyz(0, 1, 0);
-		v1.setNxyz(0, 0, 1);
+		v1.setNxyz(0, 0, -1);
 		v1.setSt(0, 1);
 
 		Vertex v2 = new Vertex();
 		v1.setXyz(1, 1, 0);
-		v1.setNxyz(0, 0, 1);
+		v1.setNxyz(0, 0, -1);
 		v1.setSt(1, 1);
 
 		Vertex v3 = new Vertex();
 		v1.setXyz(1, 0, 0);
-		v1.setNxyz(0, 0, 1);
+		v1.setNxyz(0, 0, -1);
 		v1.setSt(1, 0);
 
 		Vertex v4 = new Vertex();
 		v1.setXyz(0, 0, 0);
-		v1.setNxyz(0, 0, 1);
+		v1.setNxyz(0, 0, -1);
 		v1.setSt(0, 0);
 		
 		results.add(v1);
 		results.add(v2);
 		results.add(v3);
 		results.add(v4);
+
+//		results.add(v4);
+//		results.add(v3);
+//		results.add(v2);
+//		results.add(v1);
+		
 		return results;
 	}
 	
