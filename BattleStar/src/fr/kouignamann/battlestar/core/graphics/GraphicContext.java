@@ -126,6 +126,16 @@ public class GraphicContext {
 		checkInstance();
 		instance.drawables.add(drawable);
 	}
+	
+    public static void addCameraMovement(float movement) {
+        GraphicContext.checkInstance();
+        instance.camera.addMovement(movement);
+    }
+	
+    public static void addCameraRotation(float deltaX, float deltaY) {
+        GraphicContext.checkInstance();
+        instance.camera.addRotation(deltaX, deltaY);
+    }
 
     public static void exitOnGLError(String errorMessage) {
         int errorValue = GL11.glGetError();

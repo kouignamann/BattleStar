@@ -6,6 +6,7 @@ import org.lwjgl.opengl.Display;
 
 import fr.kouignamann.battlestar.core.commons.utils.DrawableUtils;
 import fr.kouignamann.battlestar.core.commons.utils.ObjUtils;
+import fr.kouignamann.battlestar.core.controlers.Controlers;
 import fr.kouignamann.battlestar.core.graphics.GraphicContext;
 import fr.kouignamann.battlestar.model.ObjModel;
 
@@ -15,11 +16,13 @@ public class BattleStar {
 		super();
 		
 		GraphicContext.init();
+		Controlers.init();
 		
 		ObjModel model = ObjUtils.loadModel(new File("resources/model/Fighter"));
 		GraphicContext.addDrawable(DrawableUtils.translateObj(model));
 		
 		while(!Display.isCloseRequested()) {
+			Controlers.listen();
 			GraphicContext.compute();
 			GraphicContext.draw();
             Display.update();
