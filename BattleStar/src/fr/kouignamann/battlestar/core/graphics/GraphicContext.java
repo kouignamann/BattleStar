@@ -106,12 +106,12 @@ public class GraphicContext {
 			if (DrawStyle.TRIANGLES.equals(component.getDrawStyle())) {
 				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
 			}
-			if (DrawStyle.QUADS.equals(component.getDrawStyle())) {
-				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-			}
-			if (DrawStyle.POLYGON.equals(component.getDrawStyle())) {
-				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-			}
+//			if (DrawStyle.QUADS.equals(component.getDrawStyle())) {
+//				GL11.glDrawElements(GL11.GL_QUADS, component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
+//			}
+//			if (DrawStyle.POLYGON.equals(component.getDrawStyle())) {
+//				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
+//			}
         }
         
         GL20.glDisableVertexAttribArray(0);

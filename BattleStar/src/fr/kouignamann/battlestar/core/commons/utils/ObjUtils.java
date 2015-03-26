@@ -6,14 +6,17 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+
 
 import static fr.kouignamann.battlestar.core.commons.utils.JavaUtils.*;
 import fr.kouignamann.battlestar.model.ObjModel;
@@ -144,17 +147,23 @@ public class ObjUtils {
 					"component : " + facesKey
 					+ " / nb vert per mesh : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length
 					+ " / nb vert : " + basicModel.faces.get(facesKey).size());
+//			if (basicModel.faces.get(facesKey).size() > 1000) {
+//				continue;
+//			}
         	basicModel.faces.get(facesKey).stream().forEach((face) -> {
     			Map<String, List<Integer>> indiceMapByComplexity = null;
-    			if (face.vertexIndices.length == 3) {
-    				indiceMapByComplexity = result.getIndices().get(0);
-    			} else if (face.vertexIndices.length == 4) {
-    				indiceMapByComplexity = result.getIndices().get(1);
-    			} else if (face.vertexIndices.length > 5) {
-    				indiceMapByComplexity = new HashMap<>();
-    				result.getIndices().add(indiceMapByComplexity);
-    			}
+//    			if (face.vertexIndices.length == 3) {
+				indiceMapByComplexity = result.getIndices().get(0);
+//    			} else if (face.vertexIndices.length == 4) {
+//    				indiceMapByComplexity = result.getIndices().get(1);
+//    			} else if (face.vertexIndices.length > 5) {
+//    				indiceMapByComplexity = new HashMap<>();
+//    				result.getIndices().add(indiceMapByComplexity);
+//    			}
     			
+				
+    			Integer[] localBuffer = new Integer[face.vertexIndices.length];
+    				
         		for (int i=0; i<face.vertexIndices.length; i++) {
         			int vertexNumber = 0;
         			StringBuilder vertexIndex = new StringBuilder()
@@ -181,8 +190,18 @@ public class ObjUtils {
         			if (!indiceMapByComplexity.containsKey(facesKey)) {
         				indiceMapByComplexity.put(facesKey, new ArrayList<>());
         			}
-        			indiceMapByComplexity.get(facesKey).add(vertexNumber);
+    				localBuffer[i%face.vertexIndices.length] = vertexNumber;
         		}
+        		switch (face.vertexIndices.length) {
+					case 3:
+	        			indiceMapByComplexity.get(facesKey).addAll(Arrays.asList(localBuffer));
+						break;
+					case 4:
+	        			indiceMapByComplexity.get(facesKey).addAll(Arrays.asList(new Integer[] {
+	        							localBuffer[0],localBuffer[1],localBuffer[2],
+	        							localBuffer[2],localBuffer[3],localBuffer[0]}));
+						break;
+				}
         	});
         }
         return result;
