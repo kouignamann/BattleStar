@@ -65,7 +65,7 @@ public class ObjUtils {
         	String objFilePath = new String(source.getAbsolutePath() + "/" + source.getName() + ".obj");
         	objFile = new File(objFilePath);
         	if (!objFile.exists() || !objFile.isFile()) {
-        		throw new IllegalArgumentException("Unable to find OBJ file :" + mtlFilePath);
+        		throw new IllegalArgumentException("Unable to find OBJ file :" + objFilePath);
         	}
         	basicModel.mtl.putAll(loadMaterialMap(mtlFile));
         }

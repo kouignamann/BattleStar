@@ -48,8 +48,8 @@ public class Camera {
         viewMatrix = new Matrix4f();
         viewMatrix.setIdentity();
 
-        cameraPosition = new Vector3f(0, -10, 0);
-        cameraRotation = new Vector3f(pi()/2f, -pi()/2f, 0);
+        cameraPosition = INITIAL_CAMERA_POSITION;
+        cameraRotation = INITIAL_CAMERA_ROTATION;
 
         modelMatrix = new Matrix4f();
         Vector3f modelScale = new Vector3f(1.0f/SCALE, 1.0f/SCALE, 1.0f/SCALE);
@@ -58,22 +58,23 @@ public class Camera {
 	
     public void compute() {
         viewMatrix.setIdentity();
+        
+        Matrix4f.translate(cameraPosition, viewMatrix, viewMatrix);
 
         Matrix4f.rotate(cameraRotation.x, RotationAxis.X_AXIS.getAxisVector(), viewMatrix, viewMatrix);
-        Matrix4f.rotate(cameraRotation.z, RotationAxis.Y_AXIS.getAxisVector(), viewMatrix, viewMatrix);
-
-        Matrix4f.translate(cameraPosition, viewMatrix, viewMatrix);
+        Matrix4f.rotate(cameraRotation.y, RotationAxis.Y_AXIS.getAxisVector(), viewMatrix, viewMatrix);
+        Matrix4f.rotate(cameraRotation.z, RotationAxis.Z_AXIS.getAxisVector(), viewMatrix, viewMatrix);
     }
 	
     public void addRotation(float deltaX, float deltaY)
     {
     	cameraRotation.x -= deltaY;
-    	cameraRotation.z -= deltaX;
+    	cameraRotation.y -= deltaX;
     }
 	
     public void addMovement(float movement)
     {
-    	cameraPosition.y += movement;
+    	cameraPosition.z += movement;
     }
 
     public Matrix4f getProjectionMatrix() {
