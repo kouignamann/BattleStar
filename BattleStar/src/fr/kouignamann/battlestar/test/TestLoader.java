@@ -11,7 +11,6 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import fr.kouignamann.battlestar.core.commons.enums.DrawStyle;
 import fr.kouignamann.battlestar.core.graphics.GraphicContext;
 import fr.kouignamann.battlestar.core.graphics.TextureContext;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
@@ -56,7 +55,7 @@ public class TestLoader {
         TextureContext.loadTexture("redTestTexture", "resources/model/Test/red.png");
         
         DrawableObject result = new DrawableObject(vaoId, vboId, vboiId, indicesBuffer.limit());
-        result.getComponents().add(new DrawableComponent(DrawStyle.TRIANGLES, "redTestTexture", 0, indices.length));
+        result.getComponents().add(new DrawableComponent("redTestTexture", 0, indices.length));
         
         GraphicContext.addDrawable(result);
 	}
@@ -66,34 +65,28 @@ public class TestLoader {
 		
 		Vertex v1 = new Vertex();
 		v1.setXyz(0, 1, 0);
-		v1.setNxyz(0, 0, -1);
+		v1.setNxyz(0, 0, 1);
 		v1.setSt(0, 1);
 
 		Vertex v2 = new Vertex();
 		v1.setXyz(1, 1, 0);
-		v1.setNxyz(0, 0, -1);
+		v1.setNxyz(0, 0, 1);
 		v1.setSt(1, 1);
 
 		Vertex v3 = new Vertex();
 		v1.setXyz(1, 0, 0);
-		v1.setNxyz(0, 0, -1);
+		v1.setNxyz(0, 0, 1);
 		v1.setSt(1, 0);
 
 		Vertex v4 = new Vertex();
 		v1.setXyz(0, 0, 0);
-		v1.setNxyz(0, 0, -1);
+		v1.setNxyz(0, 0, 1);
 		v1.setSt(0, 0);
 		
 		results.add(v1);
 		results.add(v2);
 		results.add(v3);
 		results.add(v4);
-
-//		results.add(v4);
-//		results.add(v3);
-//		results.add(v2);
-//		results.add(v1);
-		
 		return results;
 	}
 	

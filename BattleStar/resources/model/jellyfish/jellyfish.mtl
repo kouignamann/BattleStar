@@ -1,0 +1,187 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 06.02.2014 09:05:19
+
+newmtl fuselaje
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.4050 0.4050 0.4050
+	Ke 0.0000 0.0000 0.0000
+
+newmtl fuselaje_lagarto_A
+	Ns 100.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.5400 0.5400 0.5400
+	Ke 0.0000 0.0000 0.0000
+	map_Ka S:\TEXTURAS EN GENERAL\METALES\FUSELAJE NAVES.gif
+	map_Kd S:\TEXTURAS EN GENERAL\METALES\FUSELAJE NAVES.gif
+	map_bump S:\TEXTURAS EN GENERAL\METALES\FUSELAJE NAVES.gif
+	bump S:\TEXTURAS EN GENERAL\METALES\FUSELAJE NAVES.gif
+
+newmtl cemento
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.4050 0.4050 0.4050
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\kayucoman\Desktop\spock_jellyfish\bahia.psd
+	map_Kd C:\Users\kayucoman\Desktop\spock_jellyfish\bahia.psd
+	map_bump C:\Users\kayucoman\Desktop\spock_jellyfish\bahia.psd
+	bump C:\Users\kayucoman\Desktop\spock_jellyfish\bahia.psd
+
+newmtl motorA
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.4050 0.4050 0.4050
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\kayucoman\Desktop\spock_jellyfish\relieve aletas.psd
+	map_Kd C:\Users\kayucoman\Desktop\spock_jellyfish\relieve aletas.psd
+	map_bump C:\Users\kayucoman\Desktop\spock_jellyfish\relieve aletas.psd
+	bump C:\Users\kayucoman\Desktop\spock_jellyfish\relieve aletas.psd
+
+newmtl eje_giro
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.4050 0.4050 0.4050
+	Ke 0.0000 0.0000 0.0000
+	map_Ka S:\Escenas 3dmax 3 NO BORRAR\NAVES ESPACIALES\STAR TREK\STAR TREK NAVES HECHAS CON MAX\FEDERACION DE PLANETAS\STAR TREK 2009\nave Spock StarTrek 2009 jellyfish\TEXTURAS\brutos\bahia.jpg
+	map_Kd S:\Escenas 3dmax 3 NO BORRAR\NAVES ESPACIALES\STAR TREK\STAR TREK NAVES HECHAS CON MAX\FEDERACION DE PLANETAS\STAR TREK 2009\nave Spock StarTrek 2009 jellyfish\TEXTURAS\brutos\bahia.jpg
+	map_bump S:\Escenas 3dmax 3 NO BORRAR\NAVES ESPACIALES\STAR TREK\STAR TREK NAVES HECHAS CON MAX\FEDERACION DE PLANETAS\STAR TREK 2009\nave Spock StarTrek 2009 jellyfish\TEXTURAS\brutos\bahia.jpg
+	bump S:\Escenas 3dmax 3 NO BORRAR\NAVES ESPACIALES\STAR TREK\STAR TREK NAVES HECHAS CON MAX\FEDERACION DE PLANETAS\STAR TREK 2009\nave Spock StarTrek 2009 jellyfish\TEXTURAS\brutos\bahia.jpg
+
+newmtl 13___Default
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\Materiales compuestos\Texturas-fibra-de-carbono.png
+	map_Kd S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\Materiales compuestos\Texturas-fibra-de-carbono.png
+
+newmtl frontal
+	Ns 100.0000
+	Ni 1.5000
+	d 0.4500
+	Tr 0.5500
+	Tf 0.4500 0.4500 0.4500 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.0000 0.0000 0.0000
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+
+newmtl mamparo_carlinga
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\aluminium-texture-6102637.jpg
+	map_Kd S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\aluminium-texture-6102637.jpg
+
+newmtl estructuras_metalicas
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.4050 0.4050 0.4050
+	Ke 0.0000 0.0000 0.0000
+	map_Ka S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\egn102.jpg
+	map_Kd S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\egn102.jpg
+	map_bump S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\egn102.jpg
+	bump S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\egn102.jpg
+
+newmtl paneles_luces
+	Ns 50.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5451 0.5922 0.8235
+	Kd 0.5451 0.5922 0.8235
+	Ks 0.0000 0.1038 0.8685
+	Ke 0.5451 0.5922 0.8235
+	map_Ka S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\lights\leds.jpg
+	map_Kd S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\lights\leds.jpg
+	map_bump S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\lights\leds.jpg
+
+newmtl cristal
+	Ns 100.0000
+	Ni 1.5000
+	d 0.0200
+	Tr 0.9800
+	Tf 0.0200 0.0200 0.0200 
+	illum 2
+	Ka 0.0000 0.2667 0.8078
+	Kd 0.0000 0.2667 0.8078
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.2667 0.8078
+
+newmtl suelo_puente
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5882 0.5882 0.5882
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.4050 0.4050 0.4050
+	Ke 0.0000 0.0000 0.0000
+	map_Ka S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\metal para suelos\normal.jpg
+	map_Kd S:\MAPAS 3DMAX NO BORRARA NUNCAAAAAAAA\metal\metal para suelos\normal.jpg
+
+newmtl HUD
+	Ns 100.0000
+	Ni 1.5000
+	d 0.0200
+	Tr 0.9800
+	Tf 0.0200 0.0200 0.0200 
+	illum 2
+	Ka 0.0000 0.5882 0.8078
+	Kd 0.0000 0.5882 0.8078
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.5882 0.8078

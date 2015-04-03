@@ -143,27 +143,9 @@ public class ObjUtils {
         			&& basicModel.mtl.get(facesKey).map_Kd.trim() != "") {
         		result.getTextures().put(facesKey, basicModel.mtl.get(facesKey).map_Kd);
         	}
-			System.out.println(
-					"component : " + facesKey
-					+ " / nb vert per mesh : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length
-					+ " / nb vert : " + basicModel.faces.get(facesKey).size());
-//			if (basicModel.faces.get(facesKey).size() > 1000) {
-//				continue;
-//			}
+			System.out.println("component : " + facesKey + " / nb vert per mesh : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length + " / nb mesh : " + basicModel.faces.get(facesKey).size());
         	basicModel.faces.get(facesKey).stream().forEach((face) -> {
-    			Map<String, List<Integer>> indiceMapByComplexity = null;
-//    			if (face.vertexIndices.length == 3) {
-				indiceMapByComplexity = result.getIndices().get(0);
-//    			} else if (face.vertexIndices.length == 4) {
-//    				indiceMapByComplexity = result.getIndices().get(1);
-//    			} else if (face.vertexIndices.length > 5) {
-//    				indiceMapByComplexity = new HashMap<>();
-//    				result.getIndices().add(indiceMapByComplexity);
-//    			}
-    			
-				
-    			Integer[] localBuffer = new Integer[face.vertexIndices.length];
-    				
+        		Integer[] indicesBuffer = new Integer[face.vertexIndices.length];
         		for (int i=0; i<face.vertexIndices.length; i++) {
         			int vertexNumber = 0;
         			StringBuilder vertexIndex = new StringBuilder()
@@ -172,9 +154,9 @@ public class ObjUtils {
         					.append(face.textureIndices[i])
         					.append(VERTEX_INDEX_SEPARATOR)
         					.append(face.normalIndices[i]);
-        			if (verticesIndex.contains(vertexIndex.toString())) {
-        				vertexNumber = verticesIndex.indexOf(vertexIndex.toString());
-        			} else {
+//        			if (verticesIndex.contains(vertexIndex.toString())) {
+//        				vertexNumber = verticesIndex.indexOf(vertexIndex.toString());
+//        			} else {
         				verticesIndex.add(vertexIndex.toString());
         	            Vector3f v = basicModel.vertices.get(face.vertexIndices[i]-1);
         	            Vector2f t = basicModel.textures.get(face.textureIndices[i]-1);
@@ -185,23 +167,23 @@ public class ObjUtils {
         	            vertex.setSt(t.x, 1.0f-t.y);
         	            vertexNumber = result.getVertices().size();
         	            result.getVertices().add(vertex);
-        			}
-        			
-        			if (!indiceMapByComplexity.containsKey(facesKey)) {
-        				indiceMapByComplexity.put(facesKey, new ArrayList<>());
-        			}
-    				localBuffer[i%face.vertexIndices.length] = vertexNumber;
+//        			}
+        			indicesBuffer[i] = vertexNumber;
         		}
-        		switch (face.vertexIndices.length) {
-					case 3:
-	        			indiceMapByComplexity.get(facesKey).addAll(Arrays.asList(localBuffer));
-						break;
-					case 4:
-	        			indiceMapByComplexity.get(facesKey).addAll(Arrays.asList(new Integer[] {
-	        							localBuffer[0],localBuffer[1],localBuffer[2],
-	        							localBuffer[2],localBuffer[3],localBuffer[0]}));
-						break;
-				}
+    			
+    			if (!result.getIndices().containsKey(facesKey)) {
+    				result.getIndices().put(facesKey, new ArrayList<Integer>());
+    			}
+    			switch (face.vertexIndices.length) {
+	    			case 3:
+	        			result.getIndices().get(facesKey).addAll(Arrays.asList(indicesBuffer));
+	    				break;
+	    			case 4:
+	        			result.getIndices().get(facesKey).addAll(Arrays.asList(new Integer[] {
+	        				indicesBuffer[0], indicesBuffer[1], indicesBuffer[2],
+	        				indicesBuffer[2], indicesBuffer[3], indicesBuffer[0]}));
+	    				break;
+    			}
         	});
         }
         return result;

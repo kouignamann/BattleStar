@@ -41,7 +41,7 @@ public class ShaderContext {
 		projectionMatrixLocation = GL20.glGetUniformLocation(shaderId,"projectionMatrix");
 		viewMatrixLocation = GL20.glGetUniformLocation(shaderId, "viewMatrix");
 		modelMatrixLocation = GL20.glGetUniformLocation(shaderId, "modelMatrix");
-        useTextureLocation = GL20.glGetUniformLocation(shaderId, "use_texture");
+		useTextureLocation = GL20.glGetUniformLocation(shaderId, "use_texture");
 
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
         
@@ -99,9 +99,9 @@ public class ShaderContext {
         GL20.glUseProgram(0);
     }
     
-    public static void pushUseTexture(boolean useTexture) {
+    public static void useTexture(boolean use) {
     	checkInstance();
-        GL20.glUniform1i(instance.useTextureLocation, useTexture ? 1 : 0);
+    	GL20.glUniform1i(instance.useTextureLocation, use ? 1 : 0);
     }
     
     public static int getHandle() {

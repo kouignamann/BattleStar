@@ -20,6 +20,11 @@ public class DrawableObject {
 		this.components = new ArrayList<DrawableComponent>();
 	}
 	
+	@Override
+	public void finalize() {
+		
+	}
+	
 	public void addComponent(DrawableComponent component) {
 		this.components.add(component);
 	}

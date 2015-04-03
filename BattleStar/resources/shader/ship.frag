@@ -12,6 +12,7 @@ out vec4 out_Color;
 
 void main(void) {
     out_Color = pass_Color;
+    // Override out_Color with our texture pixel
     if (use_texture == 1) {
     	out_Color = texture(texture_diffuse, pass_TextureCoord);
 	}
