@@ -47,17 +47,16 @@ public class DrawableUtils {
         int vboiLenght = objModel.getIndicesCount();
         IntBuffer indicesBuffer = BufferUtils.createIntBuffer(vboiLenght);
         Set<String> textureIds = new HashSet<String>();
-        for (int i = 0; i<objModel.getIndices().size(); i++) {
-        	for (String indiceMapKey : objModel.getIndices().keySet()) {
-        		if (!textureIds.contains(indiceMapKey) && objModel.getTextures().get(indiceMapKey) != null) {
-    				TextureContext.loadTexture(indiceMapKey, objModel.getBasePath() + objModel.getTextures().get(indiceMapKey));
-    				textureIds.add(indiceMapKey);
-        		}
-            	components.add(new DrawableComponent(indiceMapKey, indicesBuffer.position(), objModel.getIndices().get(indiceMapKey).size()));
-            	int[] data = toIntArray(objModel.getIndices().get(indiceMapKey));
-                indicesBuffer.put(data);
-        	}
-        }
+    	for (String indiceMapKey : objModel.getIndices().keySet()) {
+    		if (!textureIds.contains(indiceMapKey) && objModel.getTextures().get(indiceMapKey) != null) {
+				TextureContext.loadTexture(indiceMapKey, objModel.getBasePath() + objModel.getTextures().get(indiceMapKey));
+				textureIds.add(indiceMapKey);
+    		}
+        	components.add(new DrawableComponent(indiceMapKey, indicesBuffer.position(), objModel.getIndices().get(indiceMapKey).size()));
+        	int[] data = toIntArray(objModel.getIndices().get(indiceMapKey));
+            System.out.println("VBOI length + : " + data.length);
+            indicesBuffer.put(data);
+    	}
         indicesBuffer.flip();
 
         int vboiId = GL15.glGenBuffers();

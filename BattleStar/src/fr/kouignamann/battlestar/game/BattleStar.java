@@ -18,7 +18,8 @@ public class BattleStar {
 		GraphicContext.init();
 		Controlers.init();
 		
-		ObjModel model = ObjUtils.loadModel(new File("resources/model/Fighter"));
+		ObjModel model = ObjUtils.loadModel(new File("resources/model/MRX22 Recon Flyer"));
+//		ObjModel model = ObjUtils.loadModel(new File("resources/model/Fighter"));
 		GraphicContext.addDrawable(DrawableUtils.translateObj(model));
 		
 		while(!Display.isCloseRequested()) {
