@@ -152,9 +152,9 @@ public class ObjUtils {
         					.append(face.textureIndices[i])
         					.append(VERTEX_INDEX_SEPARATOR)
         					.append(face.normalIndices[i]);
-        			if (verticesIndex.contains(vertexIndex.toString())) {
-        				vertexNumber = verticesIndex.indexOf(vertexIndex.toString());
-        			} else {
+//        			if (verticesIndex.contains(vertexIndex.toString())) {
+//        				vertexNumber = verticesIndex.indexOf(vertexIndex.toString());
+//        			} else {
         				verticesIndex.add(vertexIndex.toString());
         	            Vector3f v = basicModel.vertices.get(face.vertexIndices[i]-1);
         	            Vector2f t = basicModel.textures.get(face.textureIndices[i]-1);
@@ -165,7 +165,7 @@ public class ObjUtils {
         	            vertex.setSt(t.x, 1.0f-t.y);
         	            vertexNumber = result.getVertices().size();
         	            result.getVertices().add(vertex);
-        			}
+//        			}
         			indicesBuffer[i] = vertexNumber;
         		}
     			
