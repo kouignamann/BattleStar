@@ -54,7 +54,6 @@ public class DrawableUtils {
     		}
         	components.add(new DrawableComponent(indiceMapKey, indicesBuffer.position(), objModel.getIndices().get(indiceMapKey).size()));
         	int[] data = toIntArray(objModel.getIndices().get(indiceMapKey));
-            System.out.println("VBOI length + : " + data.length);
             indicesBuffer.put(data);
     	}
         indicesBuffer.flip();
