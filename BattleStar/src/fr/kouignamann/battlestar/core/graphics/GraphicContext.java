@@ -17,7 +17,6 @@ import org.lwjgl.opengl.GL30;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 
-import fr.kouignamann.battlestar.core.commons.enums.DrawStyle;
 import fr.kouignamann.battlestar.model.Camera;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
 import fr.kouignamann.battlestar.model.drawable.DrawableObject;
@@ -103,15 +102,7 @@ public class GraphicContext {
         
         for (DrawableComponent component : drawable.getComponents()) {
         	TextureContext.bindTexture(component.getTextureId());
-			if (DrawStyle.TRIANGLES.equals(component.getDrawStyle())) {
-				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-			}
-			if (DrawStyle.QUADS.equals(component.getDrawStyle())) {
-				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-			}
-			if (DrawStyle.POLYGON.equals(component.getDrawStyle())) {
-				GL11.glDrawElements(component.getDrawStyle().nativeValue(), component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
-			}
+			GL11.glDrawElements(GL11.GL_TRIANGLES, component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
         }
         
         GL20.glDisableVertexAttribArray(0);

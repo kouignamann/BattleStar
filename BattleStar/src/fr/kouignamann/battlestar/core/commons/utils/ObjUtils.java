@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public class ObjUtils {
         	String objFilePath = new String(source.getAbsolutePath() + "/" + source.getName() + ".obj");
         	objFile = new File(objFilePath);
         	if (!objFile.exists() || !objFile.isFile()) {
-        		throw new IllegalArgumentException("Unable to find OBJ file :" + objFilePath);
+        		throw new IllegalArgumentException("Unable to find OBJ file :" + mtlFilePath);
         	}
         	basicModel.mtl.putAll(loadMaterialMap(mtlFile));
         }
@@ -140,21 +141,9 @@ public class ObjUtils {
         			&& basicModel.mtl.get(facesKey).map_Kd.trim() != "") {
         		result.getTextures().put(facesKey, basicModel.mtl.get(facesKey).map_Kd);
         	}
-			System.out.println(
-					"component : " + facesKey
-					+ " / nb vert per mesh : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length
-					+ " / nb vert : " + basicModel.faces.get(facesKey).size());
+			System.out.println("component : " + facesKey + " / nb vert : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length);
         	basicModel.faces.get(facesKey).stream().forEach((face) -> {
-    			Map<String, List<Integer>> indiceMapByComplexity = null;
-    			if (face.vertexIndices.length == 3) {
-    				indiceMapByComplexity = result.getIndices().get(0);
-    			} else if (face.vertexIndices.length == 4) {
-    				indiceMapByComplexity = result.getIndices().get(1);
-    			} else if (face.vertexIndices.length > 5) {
-    				indiceMapByComplexity = new HashMap<>();
-    				result.getIndices().add(indiceMapByComplexity);
-    			}
-    			
+        		Integer[] indicesBuffer = new Integer[face.vertexIndices.length];
         		for (int i=0; i<face.vertexIndices.length; i++) {
         			int vertexNumber = 0;
         			StringBuilder vertexIndex = new StringBuilder()
@@ -177,12 +166,22 @@ public class ObjUtils {
         	            vertexNumber = result.getVertices().size();
         	            result.getVertices().add(vertex);
         			}
-        			
-        			if (!indiceMapByComplexity.containsKey(facesKey)) {
-        				indiceMapByComplexity.put(facesKey, new ArrayList<>());
-        			}
-        			indiceMapByComplexity.get(facesKey).add(vertexNumber);
+        			indicesBuffer[i] = vertexNumber;
         		}
+    			
+    			if (!result.getIndices().containsKey(facesKey)) {
+    				result.getIndices().put(facesKey, new ArrayList<>());
+    			}
+    			switch (face.vertexIndices.length) {
+	    			case 3:
+	        			result.getIndices().get(facesKey).addAll(Arrays.asList(indicesBuffer));
+	    				break;
+	    			case 4:
+	        			result.getIndices().get(facesKey).addAll(Arrays.asList(new Integer[] {
+	        				indicesBuffer[0], indicesBuffer[1], indicesBuffer[2],
+	        				indicesBuffer[2], indicesBuffer[3], indicesBuffer[0]}));
+	    				break;
+    			}
         	});
         }
         return result;

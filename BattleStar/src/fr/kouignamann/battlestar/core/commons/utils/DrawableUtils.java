@@ -7,7 +7,6 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.lwjgl.BufferUtils;
@@ -16,7 +15,6 @@ import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
-import fr.kouignamann.battlestar.core.commons.enums.DrawStyle;
 import fr.kouignamann.battlestar.core.graphics.TextureContext;
 import fr.kouignamann.battlestar.model.ObjModel;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
@@ -50,21 +48,13 @@ public class DrawableUtils {
         IntBuffer indicesBuffer = BufferUtils.createIntBuffer(vboiLenght);
         Set<String> textureIds = new HashSet<String>();
         for (int i = 0; i<objModel.getIndices().size(); i++) {
-        	Map<String, List<Integer>> indiceMap = objModel.getIndices().get(i);
-        	DrawStyle drawStyle = DrawStyle.TRIANGLES;
-        	if (i==1) {
-        		drawStyle = DrawStyle.QUADS;
-        	} else if (i>1) {
-        		drawStyle = DrawStyle.POLYGON;
-        	}
-        	
-        	for (String indiceMapKey : indiceMap.keySet()) {
+        	for (String indiceMapKey : objModel.getIndices().keySet()) {
         		if (!textureIds.contains(indiceMapKey) && objModel.getTextures().get(indiceMapKey) != null) {
     				TextureContext.loadTexture(indiceMapKey, objModel.getBasePath() + objModel.getTextures().get(indiceMapKey));
     				textureIds.add(indiceMapKey);
         		}
-            	components.add(new DrawableComponent(drawStyle, indiceMapKey, indicesBuffer.position(), indiceMap.get(indiceMapKey).size()));
-            	int[] data = toIntArray(indiceMap.get(indiceMapKey));
+            	components.add(new DrawableComponent(indiceMapKey, indicesBuffer.position(), objModel.getIndices().get(indiceMapKey).size()));
+            	int[] data = toIntArray(objModel.getIndices().get(indiceMapKey));
                 indicesBuffer.put(data);
         	}
         }
