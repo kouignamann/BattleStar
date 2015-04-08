@@ -46,8 +46,6 @@ public class ObjUtils {
     private static final Pattern KM_MTL_FIELD_PATTERN = Pattern.compile("Km[\\s]+([e0-9\\-\\+\\.]+)[\\s]*");
     private static final Pattern MAP_KD_MTL_FIELD_PATTERN = Pattern.compile("map_Kd[\\s]+([\\w/\\\\.]+)[\\s]*");
     
-    private static final String VERTEX_INDEX_SEPARATOR = "-";
-    
     private ObjUtils() {
         super();
     }
@@ -136,45 +134,38 @@ public class ObjUtils {
         
         ObjModel result = new ObjModel(source.getAbsolutePath());
         
-        List<String> verticesIndex = new ArrayList<>();
         for (String facesKey : basicModel.faces.keySet()) {
         	if (!basicModel.mtl.isEmpty()
         			&& basicModel.mtl.get(facesKey).map_Kd != null
         			&& basicModel.mtl.get(facesKey).map_Kd.trim() != "") {
         		result.getTextures().put(facesKey, basicModel.mtl.get(facesKey).map_Kd);
         	}
-			System.out.println("component : " + facesKey + " / nb vert per mesh : " + basicModel.faces.get(facesKey).get(0).vertexIndices.length + " / nb mesh : " + basicModel.faces.get(facesKey).size());
+            MaterialTemplate mtl = basicModel.mtl.get(facesKey);
+			System.out.println(String.format("component : %s / nb vert per mesh : %s / nb mesh : %s",
+					facesKey, basicModel.faces.get(facesKey).get(0).vertexIndices.length, basicModel.faces.get(facesKey).size()));
         	basicModel.faces.get(facesKey).stream().forEach((face) -> {
         		Integer[] indicesBuffer = new Integer[face.vertexIndices.length];
         		for (int i=0; i<face.vertexIndices.length; i++) {
-        			int vertexNumber = 0;
-        			StringBuilder vertexIndex = new StringBuilder()
-        					.append(face.vertexIndices[i])
-        					.append(VERTEX_INDEX_SEPARATOR)
-        					.append(face.textureIndices[i])
-        					.append(VERTEX_INDEX_SEPARATOR)
-        					.append(face.normalIndices[i]);
-//        			if (verticesIndex.contains(vertexIndex.toString())) {
-//        				vertexNumber = verticesIndex.indexOf(vertexIndex.toString());
-//        			} else {
-        				verticesIndex.add(vertexIndex.toString());
-        	            Vector3f v = basicModel.vertices.get(face.vertexIndices[i]-1);
-        	            Vector2f t = basicModel.textures.get(face.textureIndices[i]-1);
-        	            Vector3f n = basicModel.normals.get(face.normalIndices[i]-1);
-        	            Vertex vertex = new Vertex();
-        	            vertex.setXyz(v.x, v.y, v.z);
-        	            vertex.setNxyz(n.x, n.y, n.z);
-        	            vertex.setSt(t.x, 1.0f-t.y);
-        	            vertexNumber = result.getVertices().size();
-        	            result.getVertices().add(vertex);
-//        			}
-        			indicesBuffer[i] = vertexNumber;
+    	            Vector3f v = basicModel.vertices.get(face.vertexIndices[i]-1);
+    	            Vector2f t = basicModel.textures.get(face.textureIndices[i]-1);
+    	            Vector3f n = basicModel.normals.get(face.normalIndices[i]-1);
+    	            Vertex vertex = new Vertex();
+    	            vertex.setXyz(v.x, v.y, v.z);
+    	            vertex.setRgba(mtl.Ka[0], mtl.Ka[1], mtl.Ka[2], 1);
+    	            vertex.setNxyz(n.x, n.y, n.z);
+    	            vertex.setSt(t.x, 1.0f-t.y);
+    	            result.getVertices().add(vertex);
+        			indicesBuffer[i] = result.getVertices().size()-1;
         		}
     			
     			if (!result.getIndices().containsKey(facesKey)) {
     				result.getIndices().put(facesKey, new ArrayList<Integer>());
     			}
     			switch (face.vertexIndices.length) {
+    				case 0:
+    				case 1:
+    				case 2:
+    					throw new IllegalArgumentException(String.format("Cannont handle meshes with %s vertices (< 3)", face.vertexIndices.length));
 	    			case 3:
 	        			result.getIndices().get(facesKey).addAll(Arrays.asList(indicesBuffer));
 	    				break;
@@ -183,6 +174,12 @@ public class ObjUtils {
 	        				indicesBuffer[0], indicesBuffer[1], indicesBuffer[2],
 	        				indicesBuffer[2], indicesBuffer[3], indicesBuffer[0]}));
 	    				break;
+	    			default:
+	        			for (int i=1; i<face.vertexIndices.length-2; i++) {
+		        			result.getIndices().get(facesKey).addAll(Arrays.asList(new Integer[] {
+			        				indicesBuffer[i], indicesBuffer[i+1], indicesBuffer[0]}));
+	        			}
+	        			break;
     			}
         	});
         }
@@ -250,7 +247,7 @@ public class ObjUtils {
 		catch (IOException e) {
 			throw new IllegalStateException("MTL file i/o error", e);
 		}
-		
+        System.out.println(String.format("MTL loaded : %s templates found", result.size()));
 		return result;
 	}
 	

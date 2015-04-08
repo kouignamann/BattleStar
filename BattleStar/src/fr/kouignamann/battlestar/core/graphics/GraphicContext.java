@@ -14,12 +14,14 @@ import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.GL33;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 
 import fr.kouignamann.battlestar.model.Camera;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
 import fr.kouignamann.battlestar.model.drawable.DrawableObject;
+import fr.kouignamann.battlestar.model.gl.Vertex;
 
 public class GraphicContext {
 	
@@ -88,7 +90,10 @@ public class GraphicContext {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
         
     	GL20.glUseProgram(ShaderContext.getHandle());
+    	
 		instance.drawables.stream().forEach(d -> drawObject(d));
+
+    	GL33.glBindSampler(0, 0);
         GL20.glUseProgram(0);
 	}
 	
@@ -102,7 +107,11 @@ public class GraphicContext {
         
         for (DrawableComponent component : drawable.getComponents()) {
         	TextureContext.bindTexture(component.getTextureId());
-			GL11.glDrawElements(GL11.GL_TRIANGLES, component.getNbVertice(), GL11.GL_UNSIGNED_INT, component.getStartIndex());
+			GL11.glDrawElements(
+					GL11.GL_TRIANGLES,
+					component.getNbVertice(),
+					GL11.GL_UNSIGNED_INT,
+					component.getStartIndex()*Vertex.ELEMENT_BYTES);
         }
         
         GL20.glDisableVertexAttribArray(0);
