@@ -103,6 +103,8 @@ public class GraphicContext {
         GL20.glEnableVertexAttribArray(1);
         GL20.glEnableVertexAttribArray(2);
         GL20.glEnableVertexAttribArray(3);
+        GL20.glEnableVertexAttribArray(4);
+        GL20.glEnableVertexAttribArray(5);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, drawable.getVboiId());
         
         for (DrawableComponent component : drawable.getComponents()) {
@@ -118,6 +120,8 @@ public class GraphicContext {
         GL20.glDisableVertexAttribArray(1);
         GL20.glDisableVertexAttribArray(2);
         GL20.glDisableVertexAttribArray(3);
+        GL20.glDisableVertexAttribArray(4);
+        GL20.glDisableVertexAttribArray(5);
         GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);
         GL30.glBindVertexArray(0);
 	}

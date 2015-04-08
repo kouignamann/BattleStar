@@ -41,6 +41,8 @@ public class DrawableUtils {
         GL20.glVertexAttribPointer(1, Vertex.NORMAL_ELEMENT_COUNT, GL11.GL_FLOAT, false, Vertex.STRIDE, Vertex.NORMAL_BYTE_OFFSET);
         GL20.glVertexAttribPointer(2, Vertex.COLOR_ELEMENT_COUNT, GL11.GL_FLOAT, false, Vertex.STRIDE, Vertex.COLOR_BYTE_OFFSET);
         GL20.glVertexAttribPointer(3, Vertex.TEXTURE_ELEMENT_COUNT, GL11.GL_FLOAT, false, Vertex.STRIDE, Vertex.TEXTURE_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(4, Vertex.DIFFUSE_ELEMENT_COUNT, GL11.GL_FLOAT, false, Vertex.STRIDE, Vertex.DIFFUSE_BYTE_OFFSET);
+        GL20.glVertexAttribPointer(5, Vertex.SPECULAR_ELEMENT_COUNT, GL11.GL_FLOAT, false, Vertex.STRIDE, Vertex.SPECULAR_BYTE_OFFSET);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
         
         List<DrawableComponent> components = new ArrayList<DrawableComponent>();

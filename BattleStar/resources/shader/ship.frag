@@ -5,6 +5,8 @@ uniform int use_texture;
 
 in vec4 pass_Color;
 in vec2 pass_TextureCoord;
+in vec4 pass_Diffuse;
+in vec4 pass_Specular;
 
 smooth in vec3 vNormal;
 

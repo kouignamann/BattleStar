@@ -35,6 +35,8 @@ public class ShaderContext {
 		GL20.glBindAttribLocation(shaderId, 1, "Normal");
 		GL20.glBindAttribLocation(shaderId, 2, "in_Color");
 		GL20.glBindAttribLocation(shaderId, 3, "in_TextureCoord");
+		GL20.glBindAttribLocation(shaderId, 4, "in_Diffuse");
+		GL20.glBindAttribLocation(shaderId, 5, "in_Specular");
 		GL20.glLinkProgram(shaderId);
 		GL20.glValidateProgram(shaderId);
 		
