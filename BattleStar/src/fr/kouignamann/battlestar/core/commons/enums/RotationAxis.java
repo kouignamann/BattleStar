@@ -14,62 +14,17 @@ import org.lwjgl.util.vector.Vector3f;
  */
 public enum RotationAxis {
     
-    X_AXIS(
-        new Vector3f(1, 0, 0),
-        new float[] {
-            1.0f, 0.0f, 0.0f,
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-        },
-        new float[] {
-            1.0f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f,
-            0.0f, -1.0f, 0.0f,
-        }),
-    Y_AXIS(
-        new Vector3f(0, 1, 0),
-        new float[] {
-            0.0f, 0.0f, 1.0f,
-            0.0f, 1.0f, 0.0f,
-            -1.0f, 0.0f, 0.0f,
-        },
-        new float[] {
-            0.0f, 0.0f, -1.0f,
-            0.0f, 1.0f, 0.0f,
-            1.0f, 0.0f, 0.0f,
-        }),
-    Z_AXIS(
-        new Vector3f(0, 0, 1),
-        new float[] {
-            0.0f, -1.0f, 0.0f,
-            1.0f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f,
-        },
-        new float[] {
-            0.0f, 1.0f, 0.0f,
-            -1.0f, 0.0f, 0.0f,
-            0.0f, 0.0f, 1.0f,
-        });
+    X_AXIS(new Vector3f(1, 0, 0)),
+    Y_AXIS(new Vector3f(0, 1, 0)),
+    Z_AXIS(new Vector3f(0, 0, 1));
     
-    private final float[] defaultPlusRotation;
-    private final float[] defaultMinusRotation;
     private final Vector3f axisVector;
 
-    private RotationAxis(Vector3f axisVector, float[] defaultPlusRotation, float[] defaultMinusRotation) {
-        this.defaultPlusRotation = defaultPlusRotation;
-        this.defaultMinusRotation = defaultMinusRotation;
+    private RotationAxis(Vector3f axisVector) {
         this.axisVector = axisVector;
     }
 	
     public Vector3f getAxisVector() {
         return this.axisVector;
-    }
-
-    public float[] getDefaultPlusRotation() {
-        return this.defaultPlusRotation;
-    }
-
-    public float[] getDefaultMinusRotation() {
-        return this.defaultMinusRotation;
     }
 }
