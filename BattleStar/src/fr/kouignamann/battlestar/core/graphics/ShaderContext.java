@@ -23,8 +23,10 @@ public class ShaderContext {
 	private int viewMatrixLocation;
 	private int modelMatrixLocation;
 	private int useTextureLocation;
-	
-	private DirectionalLight sunLight;
+
+    private int sunLightRgbLocation;
+    private int sunLightXyzLocation;
+    private int sunLightAmbientIntensityLocation;
 	
     private FloatBuffer matrix44Buffer = null;
 	
@@ -50,10 +52,9 @@ public class ShaderContext {
 		modelMatrixLocation = GL20.glGetUniformLocation(shaderProgramId, "modelMatrix");
 		useTextureLocation = GL20.glGetUniformLocation(shaderProgramId, "use_texture");
 		
-		sunLight = new DirectionalLight(
-			GL20.glGetUniformLocation(shaderProgramId, "sunLight.vColor"),
-			GL20.glGetUniformLocation(shaderProgramId, "sunLight.vDirection"),
-			GL20.glGetUniformLocation(shaderProgramId, "sunLight.fAmbientIntensity"));
+		sunLightRgbLocation = GL20.glGetUniformLocation(shaderProgramId, "sunLight.vColor");
+		sunLightXyzLocation = GL20.glGetUniformLocation(shaderProgramId, "sunLight.vDirection");
+		sunLightAmbientIntensityLocation = GL20.glGetUniformLocation(shaderProgramId, "sunLight.fAmbientIntensity");
 		
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
         
@@ -111,12 +112,12 @@ public class ShaderContext {
         GL20.glUseProgram(0);
     }
     
-    public static void pushSunLight() {
+    public static void pushSunLight(DirectionalLight sunLight) {
     	checkInstance();
         GL20.glUseProgram(instance.shaderProgramId);
-		GL20.glUniform3f(instance.sunLight.getRgbLocation(), instance.sunLight.getRgb()[0], instance.sunLight.getRgb()[1], instance.sunLight.getRgb()[2]);
-		GL20.glUniform3f(instance.sunLight.getXyzLocation(), instance.sunLight.getXyz()[0], instance.sunLight.getXyz()[1], instance.sunLight.getXyz()[2]);
-		GL20.glUniform1f(instance.sunLight.getAmbientIntensityLocation(), instance.sunLight.getAmbientIntensity());
+		GL20.glUniform3f(instance.sunLightRgbLocation, sunLight.getRgb()[0], sunLight.getRgb()[1], sunLight.getRgb()[2]);
+		GL20.glUniform3f(instance.sunLightXyzLocation, sunLight.getXyz()[0], sunLight.getXyz()[1], sunLight.getXyz()[2]);
+		GL20.glUniform1f(instance.sunLightAmbientIntensityLocation, sunLight.getAmbientIntensity());
         GL20.glUseProgram(0);
     }
     

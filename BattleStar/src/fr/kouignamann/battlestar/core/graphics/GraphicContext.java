@@ -22,6 +22,7 @@ import fr.kouignamann.battlestar.model.Camera;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
 import fr.kouignamann.battlestar.model.drawable.DrawableObject;
 import fr.kouignamann.battlestar.model.gl.Vertex;
+import fr.kouignamann.battlestar.model.light.DirectionalLight;
 
 public class GraphicContext {
 	
@@ -31,10 +32,13 @@ public class GraphicContext {
 	
 	private List<DrawableObject> drawables;
 	
+	private DirectionalLight sunLight;
+	
 	private GraphicContext() {
 		super();
 		drawables = new ArrayList<DrawableObject>();
 		camera = new Camera();
+		sunLight = new DirectionalLight();
 	}
 	
 	private void initGl() {
@@ -78,7 +82,7 @@ public class GraphicContext {
         GraphicContext.checkInstance();
         instance.camera.compute();
         ShaderContext.pushCameraMatrices(instance.camera);
-        ShaderContext.pushSunLight();
+        ShaderContext.pushSunLight(instance.sunLight);
         GraphicContext.exitOnGLError("logicCycle");
     }
 	
