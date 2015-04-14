@@ -21,8 +21,6 @@ struct DirectionalLight
 uniform DirectionalLight sunLight;
 
 void main(void) {
-
-	
     float fDiffuseIntensity = max(0.0, dot(normalize(vNormal), -sunLight.vDirection));
     vec4 sunVector = vec4(sunLight.vColor*(sunLight.fAmbientIntensity+fDiffuseIntensity), 1.0);
     out_Color = pass_Color*sunVector;

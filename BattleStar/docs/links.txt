@@ -1,0 +1,1 @@
+tuto obj/mlt : http://www.raywenderlich.com/48297/export-blender-models-opengl-es-part-2

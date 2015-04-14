@@ -24,6 +24,9 @@ public class TextureUtils {
 	private static final String JPG_FILE_PATTERN = ".*(jpg|JPG)";
 	private static final String JPG_EXT			 = "JPG";
 	
+	private static final String TGA_FILE_PATTERN = ".*(tga|TGA)";
+	private static final String TGA_EXT			 = "TGA";
+	
 	public static int loadTexture(String fileName) {
 		try {
 			if (Pattern.matches(PNG_FILE_PATTERN, fileName)) {
@@ -31,6 +34,9 @@ public class TextureUtils {
 						.getTextureID();
 			} else if (Pattern.matches(JPG_FILE_PATTERN, fileName)) {
 				return TextureLoader.getTexture(JPG_EXT, new FileInputStream(fileName))
+						.getTextureID();
+			} else if (Pattern.matches(TGA_FILE_PATTERN, fileName)) {
+				return TextureLoader.getTexture(TGA_EXT, new FileInputStream(fileName))
 						.getTextureID();
 			}
 			throw new IllegalArgumentException(String.format("Texture file is not an handled format : '%s'", fileName));

@@ -153,8 +153,10 @@ public class ObjUtils {
     	            vertex.setRgba(mtl.Ka[0], mtl.Ka[1], mtl.Ka[2], 1);
     	            vertex.setNxyz(n.x, n.y, n.z);
     	            vertex.setSt(t.x, 1.0f-t.y);
-    	            vertex.setDiffuse(mtl.Kd[0], mtl.Kd[1], mtl.Kd[2], mtl.d);
-    	            vertex.setSpecular(mtl.Ks[0], mtl.Ks[1], mtl.Ks[2], mtl.Ns);
+    	            vertex.setDiffuse(mtl.Kd[0], mtl.Kd[1], mtl.Kd[2], 1);
+    	            if (mtl.Ks !=null) {
+    	            	vertex.setSpecular(mtl.Ks[0], mtl.Ks[1], mtl.Ks[2], 1);
+    	            }
     	            result.getVertices().add(vertex);
         			indicesBuffer[i] = result.getVertices().size()-1;
         		}
@@ -166,7 +168,8 @@ public class ObjUtils {
     				case 0:
     				case 1:
     				case 2:
-    					throw new IllegalArgumentException(String.format("Cannont handle meshes with %s vertices (< 3)", face.vertexIndices.length));
+    					break;
+//    					throw new IllegalArgumentException(String.format("Cannont handle meshes with %s vertices (< 3)", face.vertexIndices.length));
 	    			case 3:
 	        			result.getIndices().get(facesKey).addAll(Arrays.asList(indicesBuffer));
 	    				break;
