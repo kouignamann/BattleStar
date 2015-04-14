@@ -39,7 +39,6 @@ public class Drawables {
 	 * -> "resources/model/A-12_Avenger_II"						:: map_Kddddd /Glass_Cockpit.png
 	 * -> "resources/model/Hammer Head Patrol Cruiser"			:: index error
 	 * -> "resources/model/X-17 Viper"							:: nothing happens
-	 * -> "resources/model/bixler"								:: nothing happens
 	 * -> "resources/model/Star Wars FALCON"					:: nothing happens
 	 * -> "resources/model/Anakin's PodRacer"					:: index error
 	 * -> "resources/model/A10"									:: no mtl
