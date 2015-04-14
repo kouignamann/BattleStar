@@ -32,8 +32,8 @@ public class ObjUtils {
     private static final Pattern NORMAL_LINE_PATTERN
             = Pattern.compile("vn[\\s]+([e0-9\\-\\+\\.]+)[\\s]+([e0-9\\-\\+\\.]+)[\\s]+([e0-9\\-\\+\\.]+)[\\s]*");
     private static final Pattern USE_MLT_PATTERN = Pattern.compile("usemtl[\\s]+(\\w+)[\\s]*");
-    private static final Pattern FACE_PATTERN = Pattern.compile("f[\\s]+([0-9]+/[0-9]+/[0-9]+[\\s]*)+");
-    private static final Pattern FACE_VERTEX_PATTERN = Pattern.compile("([0-9]+)/([0-9]+)/([0-9]+)");
+    private static final Pattern FACE_PATTERN = Pattern.compile("f[\\s]+([0-9]+/[0-9]*/[0-9]+[\\s]*)+");
+    private static final Pattern FACE_VERTEX_PATTERN = Pattern.compile("([0-9]+)/([0-9]*)/([0-9]+)");
 
 	// MTL file patterns
     private static final Pattern MEW_MTL_PATTERN = Pattern.compile("newmtl[\\s]+(\\w+)[\\s]*");
@@ -71,8 +71,6 @@ public class ObjUtils {
         	basicModel.mtl.putAll(loadMaterialMap(mtlFile));
         }
         
-        boolean continueTest = false;
-        
         try (BufferedReader reader = new BufferedReader(new FileReader(objFile))) {
             String line;
 			String currentMaterialName = "no-material";
@@ -99,22 +97,22 @@ public class ObjUtils {
 					}
 					currentMaterialName = defaultMatcher.group(1);
 					if (basicModel.faces.containsKey(currentMaterialName)) {
-						continueTest = true;
+						currentFaceList = basicModel.faces.get(currentMaterialName);
 					} else {
-						continueTest = false;
+						currentFaceList = new ArrayList<>();
 					}
-					currentFaceList = new ArrayList<>();
 				} else if ((defaultMatcher = FACE_PATTERN.matcher(line)).matches()) {
-					if (continueTest) {
-						continue;
-					}
 					Matcher verticeMatcher = FACE_VERTEX_PATTERN.matcher(line);
 					List<Integer> vertexIndices = new ArrayList<>();
 					List<Integer> textureIndices = new ArrayList<>();
 					List<Integer> normalIndices = new ArrayList<>();
 					while (verticeMatcher.find()) {
 						vertexIndices.add(Integer.parseInt(verticeMatcher.group(1)));
-						textureIndices.add(Integer.parseInt(verticeMatcher.group(2)));
+						if (!verticeMatcher.group(2).equals("")) {
+							textureIndices.add(Integer.parseInt(verticeMatcher.group(2)));
+						} else {
+							textureIndices.add(-1);
+						}
 						normalIndices.add(Integer.parseInt(verticeMatcher.group(3)));
 					}
 					currentFaceList.add(loaderInstance.newFace(toIntArray(vertexIndices), toIntArray(textureIndices), toIntArray(normalIndices)));
@@ -146,13 +144,15 @@ public class ObjUtils {
         		Integer[] indicesBuffer = new Integer[face.vertexIndices.length];
         		for (int i=0; i<face.vertexIndices.length; i++) {
     	            Vector3f v = basicModel.vertices.get(face.vertexIndices[i]-1);
-    	            Vector2f t = basicModel.textures.get(face.textureIndices[i]-1);
     	            Vector3f n = basicModel.normals.get(face.normalIndices[i]-1);
     	            Vertex vertex = new Vertex();
     	            vertex.setXyz(v.x, v.y, v.z);
     	            vertex.setRgba(mtl.Ka[0], mtl.Ka[1], mtl.Ka[2], 1);
     	            vertex.setNxyz(n.x, n.y, n.z);
-    	            vertex.setSt(t.x, 1.0f-t.y);
+    	            if (face.textureIndices[i] != -1) {
+	    	            Vector2f t = basicModel.textures.get(face.textureIndices[i]-1);
+	    	            vertex.setSt(t.x, 1.0f-t.y);
+    	            }
     	            vertex.setDiffuse(mtl.Kd[0], mtl.Kd[1], mtl.Kd[2], 1);
     	            if (mtl.Ks !=null) {
     	            	vertex.setSpecular(mtl.Ks[0], mtl.Ks[1], mtl.Ks[2], 1);
@@ -168,8 +168,7 @@ public class ObjUtils {
     				case 0:
     				case 1:
     				case 2:
-    					break;
-//    					throw new IllegalArgumentException(String.format("Cannont handle meshes with %s vertices (< 3)", face.vertexIndices.length));
+    					throw new IllegalArgumentException(String.format("Cannont handle meshes with %s vertices (< 3)", face.vertexIndices.length));
 	    			case 3:
 	        			result.getIndices().get(facesKey).addAll(Arrays.asList(indicesBuffer));
 	    				break;

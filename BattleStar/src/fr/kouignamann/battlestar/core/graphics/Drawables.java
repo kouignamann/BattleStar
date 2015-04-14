@@ -27,12 +27,11 @@ public class Drawables {
 					"resources/model/A-12_Avenger_II",
 					"resources/model/Quad 45fg transport",
 					"resources/model/Drone",
-					"resources/model/Leonardo Da Vinci Flying Machine"
+					"resources/model/LEGO_NabooShip"
 			}));
 	
 	/**
 	 * NOT WORKING : 
-	 * -> "resources/model/LEGO_NabooShip"						:: nothing happens
 	 * -> "resources/model/SciFi AirShip"						:: nothing happens
 	 * -> "resources/model/gunship"								:: nothing happens
 	 * -> "resources/model/ARC170"								:: index error
