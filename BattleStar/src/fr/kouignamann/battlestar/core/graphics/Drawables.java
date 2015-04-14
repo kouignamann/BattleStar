@@ -19,7 +19,6 @@ public class Drawables {
 					"resources/model/MRX22 Recon Flyer",
 					"resources/model/GX7 interceptor",
 					"resources/model/Wraith Raider Starship",
-					"resources/model/jellyfish",
 					"resources/model/justigue league flying vehicle",
 					"resources/model/HN 48 Flying Car",
 					"resources/model/Kameri explorer flying"
