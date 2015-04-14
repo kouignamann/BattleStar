@@ -9,6 +9,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL20;
 
 import fr.kouignamann.battlestar.model.Camera;
+import fr.kouignamann.battlestar.model.light.DirectionalLight;
 
 public class ShaderContext {
 	
@@ -22,6 +23,8 @@ public class ShaderContext {
 	private int viewMatrixLocation;
 	private int modelMatrixLocation;
 	private int useTextureLocation;
+	
+	private DirectionalLight sunLight;
 	
     private FloatBuffer matrix44Buffer = null;
 	
@@ -46,7 +49,12 @@ public class ShaderContext {
 		viewMatrixLocation = GL20.glGetUniformLocation(shaderProgramId, "viewMatrix");
 		modelMatrixLocation = GL20.glGetUniformLocation(shaderProgramId, "modelMatrix");
 		useTextureLocation = GL20.glGetUniformLocation(shaderProgramId, "use_texture");
-
+		
+		sunLight = new DirectionalLight(
+			GL20.glGetUniformLocation(shaderProgramId, "sunLight.vColor"),
+			GL20.glGetUniformLocation(shaderProgramId, "sunLight.vDirection"),
+			GL20.glGetUniformLocation(shaderProgramId, "sunLight.fAmbientIntensity"));
+		
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
         
 		GraphicContext.exitOnGLError("setupShaders");
@@ -100,6 +108,15 @@ public class ShaderContext {
         instance.matrix44Buffer.flip();
         GL20.glUniformMatrix4(instance.modelMatrixLocation, false, instance.matrix44Buffer);
         
+        GL20.glUseProgram(0);
+    }
+    
+    public static void pushSunLight() {
+    	checkInstance();
+        GL20.glUseProgram(instance.shaderProgramId);
+		GL20.glUniform3f(instance.sunLight.getRgbLocation(), instance.sunLight.getRgb()[0], instance.sunLight.getRgb()[1], instance.sunLight.getRgb()[2]);
+		GL20.glUniform3f(instance.sunLight.getXyzLocation(), instance.sunLight.getXyz()[0], instance.sunLight.getXyz()[1], instance.sunLight.getXyz()[2]);
+		GL20.glUniform1f(instance.sunLight.getAmbientIntensityLocation(), instance.sunLight.getAmbientIntensity());
         GL20.glUseProgram(0);
     }
     

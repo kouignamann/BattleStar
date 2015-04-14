@@ -78,6 +78,7 @@ public class GraphicContext {
         GraphicContext.checkInstance();
         instance.camera.compute();
         ShaderContext.pushCameraMatrices(instance.camera);
+        ShaderContext.pushSunLight();
         GraphicContext.exitOnGLError("logicCycle");
     }
 	
