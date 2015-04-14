@@ -98,7 +98,6 @@ public class ObjUtils {
 						basicModel.faces.put(currentMaterialName, currentFaceList);
 					}
 					currentMaterialName = defaultMatcher.group(1);
-					System.out.println(currentMaterialName);
 					if (basicModel.faces.containsKey(currentMaterialName)) {
 						continueTest = true;
 					} else {
@@ -249,7 +248,6 @@ public class ObjUtils {
 		catch (IOException e) {
 			throw new IllegalStateException("MTL file i/o error", e);
 		}
-        System.out.println(String.format("MTL loaded : %s templates found", result.size()));
 		return result;
 	}
 	

@@ -14,7 +14,9 @@ public class ShaderContext {
 	
 	private static ShaderContext instance;
 	
-	private int shaderId;
+	private int shaderProgramId;
+	private int vertexShaderId;
+	private int fragmentShaderId;
 	
 	private int projectionMatrixLocation;
 	private int viewMatrixLocation;
@@ -25,25 +27,25 @@ public class ShaderContext {
 	
 	private ShaderContext() {
 		super();
+
+		shaderProgramId = GL20.glCreateProgram();
+		vertexShaderId = loadShader("resources/shader/ship.vert", GL20.GL_VERTEX_SHADER);
+		fragmentShaderId = loadShader("resources/shader/ship.frag", GL20.GL_FRAGMENT_SHADER);
+		GL20.glAttachShader(shaderProgramId, vertexShaderId);
+		GL20.glAttachShader(shaderProgramId, fragmentShaderId);
+		GL20.glBindAttribLocation(shaderProgramId, 0, "in_Position");
+		GL20.glBindAttribLocation(shaderProgramId, 1, "Normal");
+		GL20.glBindAttribLocation(shaderProgramId, 2, "in_Color");
+		GL20.glBindAttribLocation(shaderProgramId, 3, "in_TextureCoord");
+		GL20.glBindAttribLocation(shaderProgramId, 4, "in_Diffuse");
+		GL20.glBindAttribLocation(shaderProgramId, 5, "in_Specular");
+		GL20.glLinkProgram(shaderProgramId);
+		GL20.glValidateProgram(shaderProgramId);
 		
-		int vsId = loadShader("resources/shader/ship.vert", GL20.GL_VERTEX_SHADER);
-		int fsId = loadShader("resources/shader/ship.frag", GL20.GL_FRAGMENT_SHADER);
-		shaderId = GL20.glCreateProgram();
-		GL20.glAttachShader(shaderId, vsId);
-		GL20.glAttachShader(shaderId, fsId);
-		GL20.glBindAttribLocation(shaderId, 0, "in_Position");
-		GL20.glBindAttribLocation(shaderId, 1, "Normal");
-		GL20.glBindAttribLocation(shaderId, 2, "in_Color");
-		GL20.glBindAttribLocation(shaderId, 3, "in_TextureCoord");
-		GL20.glBindAttribLocation(shaderId, 4, "in_Diffuse");
-		GL20.glBindAttribLocation(shaderId, 5, "in_Specular");
-		GL20.glLinkProgram(shaderId);
-		GL20.glValidateProgram(shaderId);
-		
-		projectionMatrixLocation = GL20.glGetUniformLocation(shaderId,"projectionMatrix");
-		viewMatrixLocation = GL20.glGetUniformLocation(shaderId, "viewMatrix");
-		modelMatrixLocation = GL20.glGetUniformLocation(shaderId, "modelMatrix");
-		useTextureLocation = GL20.glGetUniformLocation(shaderId, "use_texture");
+		projectionMatrixLocation = GL20.glGetUniformLocation(shaderProgramId,"projectionMatrix");
+		viewMatrixLocation = GL20.glGetUniformLocation(shaderProgramId, "viewMatrix");
+		modelMatrixLocation = GL20.glGetUniformLocation(shaderProgramId, "modelMatrix");
+		useTextureLocation = GL20.glGetUniformLocation(shaderProgramId, "use_texture");
 
         matrix44Buffer = BufferUtils.createFloatBuffer(16);
         
@@ -56,7 +58,7 @@ public class ShaderContext {
 		}
 		instance = new ShaderContext();
 	}
-    
+	
     private static int loadShader(String filename, int type) {
         StringBuilder shaderSource = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -84,7 +86,7 @@ public class ShaderContext {
     public static void pushCameraMatrices(Camera camera) {
     	checkInstance();
     	
-        GL20.glUseProgram(instance.shaderId);
+        GL20.glUseProgram(instance.shaderProgramId);
         
         camera.getProjectionMatrix().store(instance.matrix44Buffer);
         instance.matrix44Buffer.flip();
@@ -108,10 +110,17 @@ public class ShaderContext {
     
     public static int getHandle() {
     	checkInstance();
-    	return instance.shaderId;
+    	return instance.shaderProgramId;
     }
 	
 	public static void destroy() {
+    	checkInstance();
+		GL20.glUseProgram(0);
+		GL20.glDetachShader(instance.shaderProgramId, instance.vertexShaderId);
+		GL20.glDetachShader(instance.shaderProgramId, instance.fragmentShaderId);
+		GL20.glDeleteShader(instance.vertexShaderId);
+		GL20.glDeleteShader(instance.fragmentShaderId);
+		GL20.glDeleteProgram(instance.shaderProgramId);
 		instance = null;
 	}
 }

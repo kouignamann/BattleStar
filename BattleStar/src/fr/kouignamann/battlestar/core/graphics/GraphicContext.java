@@ -131,6 +131,12 @@ public class GraphicContext {
 		instance.drawables.add(drawable);
 	}
 	
+	public static void destroyDrawables() {
+		checkInstance();
+		instance.drawables.stream().forEach(DrawableObject::destroy);
+		instance.drawables.clear();
+	}
+	
     public static void addCameraMovement(float movement) {
         GraphicContext.checkInstance();
         instance.camera.addMovement(movement);
@@ -154,6 +160,9 @@ public class GraphicContext {
 	
 	public static void destroy() {
 		checkInstance();
+		instance.drawables.stream().forEach(DrawableObject::destroy);
+		ShaderContext.destroy();
+		TextureContext.destroy();
 		instance = null;
 	}
 }

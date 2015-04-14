@@ -43,7 +43,7 @@ public class TextureContext {
 	public static void destroyTexture(String textureId) {
 		checkInstance();
 		if (!instance.textures.containsKey(textureId)) {
-			throw new IllegalArgumentException("destroyTexture : No texture is bound to the id -> " + textureId);
+			return;
 		}
 		GL11.glDeleteTextures(instance.textures.get(textureId));
 		instance.textures.remove(textureId);
