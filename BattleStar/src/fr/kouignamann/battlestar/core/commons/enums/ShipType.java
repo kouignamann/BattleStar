@@ -5,16 +5,16 @@ import org.lwjgl.util.vector.Vector3f;
 public enum ShipType {
 	
 	FIGHTER							(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Fighter"),
-	MRX22_RECON_FLYER				(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/MRX22 Recon Flyer"),
-	GX7_INTERCEPTOR					(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/GX7 interceptor"),
+//	MRX22_RECON_FLYER				(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/MRX22 Recon Flyer"),
+//	GX7_INTERCEPTOR					(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/GX7 interceptor"),
 	WRAITH_RAIDER_STARSHIP			(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Wraith Raider Starship"),
-	JUSTIGUE_LEAGUE_FLYING_VEHICLE	(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/justigue league flying vehicle"),
-	HN_48_FLYING_CAR				(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/HN 48 Flying Car"),
-	KAMERI_EXPLORER_FLYING			(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Kameri explorer flying"),
+//	JUSTIGUE_LEAGUE_FLYING_VEHICLE	(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/justigue league flying vehicle"),
+//	HN_48_FLYING_CAR				(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/HN 48 Flying Car"),
+//	KAMERI_EXPLORER_FLYING			(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Kameri explorer flying"),
 	A6M_ZERO						(new Vector3f(20.0f, 20.0f, 20.0f)	, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/A6M_ZERO"),
-	FEDERATION_INTERCEPTOR_HN48		(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Federation Interceptor HN48"),
+//	FEDERATION_INTERCEPTOR_HN48		(new Vector3f(1.0f, 1.0f, 1.0f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Federation Interceptor HN48"),
 	A_12_AVENGER_II					(new Vector3f(30.0f, 30.0f, 30.0f)	, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/A-12_Avenger_II"),
-	QUAD_45FG_TRANSPORT				(new Vector3f(0.8f, 0.8f, 0.8f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Quad 45fg transport"),
+//	QUAD_45FG_TRANSPORT				(new Vector3f(0.8f, 0.8f, 0.8f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Quad 45fg transport"),
 	DRONE							(new Vector3f(90.0f, 90.0f, 90.0f)	, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/Drone"),
 	LEGO_NABOOSHIP					(new Vector3f(0.4f, 0.4f, 0.4f)		, new Vector3f(1.0f, 1.0f, 1.0f)		, "resources/model/LEGO_NabooShip");
 	
