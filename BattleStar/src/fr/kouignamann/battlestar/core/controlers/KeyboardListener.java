@@ -31,12 +31,12 @@ public class KeyboardListener implements Listener {
         if (Keyboard.isKeyDown(Keyboard.KEY_ADD)
                 && keyHitNanoTime + KEY_HIT_COOLDOWN < System.nanoTime()) {
             keyHitNanoTime = System.nanoTime();
-            Drawables.loadNextObj();
+            Drawables.loadNextShip();
         }
         if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)
                 && keyHitNanoTime + KEY_HIT_COOLDOWN < System.nanoTime()) {
             keyHitNanoTime = System.nanoTime();
-            Drawables.loadPreviousObj();
+            Drawables.loadPreviousShip();
         }
     }
 }

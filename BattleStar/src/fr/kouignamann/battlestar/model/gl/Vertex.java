@@ -6,6 +6,8 @@
 
 package fr.kouignamann.battlestar.model.gl;
 
+import org.lwjgl.util.vector.Vector3f;
+
 /**
  *
  * @author Guillaume BERTRAND
@@ -64,6 +66,19 @@ public class Vertex {
                     DIFFUSE_BYTE_COUNT +
                     SPECULAR_BYTE_COUNT;
     
+    public void translate(Vector3f scaleVector) {
+    	xyzw = new float[] {xyzw[0]+scaleVector.x, xyzw[1]+scaleVector.y, xyzw[2]+scaleVector.z, xyzw[3]};
+    }
+    
+    public void scale(Vector3f scaleVector) {
+    	xyzw = new float[] {xyzw[0]*scaleVector.x, xyzw[1]*scaleVector.y, xyzw[2]*scaleVector.z, xyzw[3]};
+    	nxyzw = new float[] {nxyzw[0]*scaleVector.x, nxyzw[1]*scaleVector.y, nxyzw[2]*scaleVector.z, nxyzw[3]};
+    }
+    
+    public void rotate(Vector3f rotationVector) {
+    	// TODO : rotate coord from the center (0,0,0)
+    }
+    
     public float[] getElements() {
         return new float[] {
             xyzw[0], xyzw[1], xyzw[2], xyzw[3],
@@ -75,7 +90,15 @@ public class Vertex {
         };
     }
     
-    public void setXyz(float[] xyz) {
+    public float[] getXyzw() {
+		return xyzw;
+	}
+
+	public float[] getNxyzw() {
+		return nxyzw;
+	}
+
+	public void setXyz(float[] xyz) {
         this.xyzw = new float[] {xyz[0], xyz[1], xyz[2], 1.0f};
     }
     

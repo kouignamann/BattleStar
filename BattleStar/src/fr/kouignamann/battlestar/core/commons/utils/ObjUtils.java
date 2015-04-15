@@ -13,12 +13,11 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-
 import static fr.kouignamann.battlestar.core.commons.utils.JavaUtils.*;
+import fr.kouignamann.battlestar.core.commons.enums.ShipType;
 import fr.kouignamann.battlestar.model.ObjModel;
 import fr.kouignamann.battlestar.model.gl.Vertex;
 
@@ -49,8 +48,28 @@ public class ObjUtils {
     private ObjUtils() {
         super();
     }
+    
+    public static ObjModel loadShipModel(ShipType shipType) {
+    	ObjModel result = loadModel(new File(shipType.getResourcePath()));
+    	List<Vertex> vertices = result.getVertices();
+    	Vector3f translationVector = getTranslationVectorToCenter(vertices);
+    	vertices.parallelStream().forEach((v) -> v.translate(translationVector));
+    	vertices.parallelStream().forEach((v) -> v.scale(shipType.getScaleVector()));
+    	vertices.parallelStream().forEach((v) -> v.rotate(shipType.getRotationVector()));
+    	return result;
+    }
+    
+    private static Vector3f getTranslationVectorToCenter(List<Vertex> vertices) {
+    	float maxX = vertices.stream().max(VertexComparators.maxX()).get().getXyzw()[0];
+    	float minX = vertices.stream().max(VertexComparators.minX()).get().getXyzw()[0];
+    	float maxY = vertices.stream().max(VertexComparators.maxY()).get().getXyzw()[1];
+    	float minY = vertices.stream().max(VertexComparators.minY()).get().getXyzw()[1];
+    	float maxZ = vertices.stream().max(VertexComparators.maxZ()).get().getXyzw()[2];
+    	float minZ = vertices.stream().max(VertexComparators.minZ()).get().getXyzw()[2];
+    	return new Vector3f(-(maxX+minX)/2.0f, -(maxY+minY)/2.0f, -(maxZ+minZ)/2.0f);
+    }
 	
-	public static ObjModel loadModel(File source) {
+	private static ObjModel loadModel(File source) {
 		ObjUtils loaderInstance = new ObjUtils();
         BasicModel basicModel = loaderInstance.newBasicModel();
         File objFile = null;
@@ -138,8 +157,8 @@ public class ObjUtils {
         		result.getTextures().put(facesKey, basicModel.mtl.get(facesKey).map_Kd);
         	}
             MaterialTemplate mtl = basicModel.mtl.get(facesKey);
-			System.out.println(String.format("component : %s / nb vert per mesh : %s / nb mesh : %s",
-					facesKey, basicModel.faces.get(facesKey).get(0).vertexIndices.length, basicModel.faces.get(facesKey).size()));
+//			System.out.println(String.format("component : %s / nb vert per mesh : %s / nb mesh : %s",
+//					facesKey, basicModel.faces.get(facesKey).get(0).vertexIndices.length, basicModel.faces.get(facesKey).size()));
         	basicModel.faces.get(facesKey).stream().forEach((face) -> {
         		Integer[] indicesBuffer = new Integer[face.vertexIndices.length];
         		for (int i=0; i<face.vertexIndices.length; i++) {
@@ -189,7 +208,7 @@ public class ObjUtils {
         return result;
 	}
 	
-	public static Map<String, MaterialTemplate> loadMaterialMap(File mtlFile) {
+	private static Map<String, MaterialTemplate> loadMaterialMap(File mtlFile) {
 		Map<String, MaterialTemplate> result = new HashMap<>();
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader(mtlFile))) {

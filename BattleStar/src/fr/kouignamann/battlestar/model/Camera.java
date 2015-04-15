@@ -60,7 +60,7 @@ public class Camera {
         viewMatrix.setIdentity();
         
         Matrix4f.translate(cameraPosition, viewMatrix, viewMatrix);
-
+        
         Matrix4f.rotate(cameraRotation.x, RotationAxis.X_AXIS.getAxisVector(), viewMatrix, viewMatrix);
         Matrix4f.rotate(cameraRotation.y, RotationAxis.Y_AXIS.getAxisVector(), viewMatrix, viewMatrix);
         Matrix4f.rotate(cameraRotation.z, RotationAxis.Z_AXIS.getAxisVector(), viewMatrix, viewMatrix);
