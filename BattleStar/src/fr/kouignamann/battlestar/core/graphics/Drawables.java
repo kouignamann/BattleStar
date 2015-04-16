@@ -41,7 +41,13 @@ public class Drawables {
 		GraphicContext.destroyDrawables();
 		System.out.println(String.format("Drawables : loading ship '%s'", instance.currentShip.name()));
 		ObjModel model = ObjUtils.loadShipModel(instance.currentShip);
-		GraphicContext.addDrawable(DrawableUtils.translateObj(model));
+		GraphicContext.addDrawableObject(DrawableUtils.translateObj(model));
+	}
+	
+	public static void loadSimpleParticleSystem() {
+		GraphicContext.destroyDrawables();
+		System.out.println("Drawables : loading simple particle system");
+		GraphicContext.addDrawableParticleSystem(DrawableUtils.initSimpleParticleSystem());
 	}
 	
     private static void checkInstance() {

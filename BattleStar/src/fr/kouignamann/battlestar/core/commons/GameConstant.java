@@ -10,16 +10,24 @@ public class GameConstant {
     public static int           SCREEN_HEIGHT       		= 786;
     
     // CAMERA
-    public static final Vector3f INITIAL_CAMERA_POSITION 	= new Vector3f(0, 0, -10);
-    public static final Vector3f INITIAL_CAMERA_ROTATION 	= new Vector3f(0, 0, 0);
+    public static Vector3f		INITIAL_CAMERA_POSITION		= new Vector3f(0, 0, -10);
+    public static Vector3f		INITIAL_CAMERA_ROTATION		= new Vector3f(0, 0, 0);
 
     // GRAPHICS
-    public final static int	SCALE							= 50;
+    public static int			SCALE						= 50;
+    
+    // PARTICULES
+    public static int 			MAX_PRTICULES_PER_SYSTEM	= 100000;
+    public static float[]		SIMPLE_PARTICULE_VERTICES	= new float[] {
+	    															-5f, -5f, 0.0f, 1.0f,
+															    	5f, -5f, 0.0f, 1.0f,
+															    	-5f, 5f, 0.0f, 1.0f,
+															    	5f, 5f, 0.0f, 1.0f};
     
     // CONTROLERS
-    public final static long	KEY_HIT_COOLDOWN    		= 200000000;
-    public final static float   WHEEL_SENSITIVITY   		= 5.0f;
-    public final static float	MOUSE_SENSITIVITY   		= 20.0f;
+    public static long			KEY_HIT_COOLDOWN    		= 200000000;
+    public static float			WHEEL_SENSITIVITY   		= 5.0f;
+    public static float			MOUSE_SENSITIVITY   		= 20.0f;
 
     private GameConstant() {
     	super();

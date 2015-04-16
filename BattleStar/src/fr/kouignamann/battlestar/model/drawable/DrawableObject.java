@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import fr.kouignamann.battlestar.core.graphics.TextureContext;
@@ -29,12 +28,6 @@ public class DrawableObject {
 	public void destroy() {
 		components.stream().forEach((component) -> TextureContext.destroyTexture(component.getTextureId()));
 		GL30.glBindVertexArray(vaoId);
-		GL20.glDisableVertexAttribArray(0);
-		GL20.glDisableVertexAttribArray(1);
-		GL20.glDisableVertexAttribArray(2);
-		GL20.glDisableVertexAttribArray(3);
-		GL20.glDisableVertexAttribArray(4);
-		GL20.glDisableVertexAttribArray(5);
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, 0);
 		GL15.glDeleteBuffers(vboId);
 		GL15.glBindBuffer(GL15.GL_ELEMENT_ARRAY_BUFFER, 0);

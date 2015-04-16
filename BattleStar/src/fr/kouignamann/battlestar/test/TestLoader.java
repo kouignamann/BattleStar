@@ -57,7 +57,7 @@ public class TestLoader {
         DrawableObject result = new DrawableObject(vaoId, vboId, vboiId, indicesBuffer.limit());
         result.getComponents().add(new DrawableComponent("redTestTexture", 0, indices.length));
         
-        GraphicContext.addDrawable(result);
+        GraphicContext.addDrawableObject(result);
 	}
 	
 	private static List<Vertex> getTestVertices() {

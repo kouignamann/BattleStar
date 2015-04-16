@@ -13,12 +13,14 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+import org.lwjgl.opengl.GL31;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
 
 import fr.kouignamann.battlestar.model.Camera;
 import fr.kouignamann.battlestar.model.drawable.DrawableComponent;
 import fr.kouignamann.battlestar.model.drawable.DrawableObject;
+import fr.kouignamann.battlestar.model.drawable.DrawableParticleSystem;
 import fr.kouignamann.battlestar.model.gl.Vertex;
 import fr.kouignamann.battlestar.model.light.DirectionalLight;
 
@@ -26,15 +28,16 @@ public class GraphicContext {
 	
 	private static GraphicContext instance;
 	
-	private Camera camera;
-	
 	private List<DrawableObject> drawables;
-	
+	private List<DrawableParticleSystem> particleSystems;
+
+	private Camera camera;
 	private DirectionalLight sunLight;
 	
 	private GraphicContext() {
 		super();
 		drawables = new ArrayList<DrawableObject>();
+		particleSystems = new ArrayList<DrawableParticleSystem>();
 		camera = new Camera();
 		sunLight = new DirectionalLight();
 	}
@@ -42,7 +45,7 @@ public class GraphicContext {
 	private void initGl() {
 		try {
             PixelFormat pixelFormat = new PixelFormat();
-            ContextAttribs contextAtrributes = new ContextAttribs(3, 2)
+            ContextAttribs contextAtrributes = new ContextAttribs(3, 3)
                 .withForwardCompatible(true)
                 .withProfileCore(true)
                 .withDebug(true);
@@ -52,6 +55,9 @@ public class GraphicContext {
         } catch (LWJGLException e) {
             throw new IllegalStateException("OpenGL init error", e);
         }
+
+		
+		System.out.println("OpenGL version: " + GL11.glGetString(GL11.GL_VERSION));
 
         GL11.glClearColor(0f,0f,0f, 0f);
         GL11.glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -81,6 +87,7 @@ public class GraphicContext {
         instance.camera.compute();
         ShaderContext.pushCameraMatrices(instance.camera);
         ShaderContext.pushSunLight(instance.sunLight);
+        instance.particleSystems.stream().forEach((ps) -> ps.compute(0));
         GraphicContext.exitOnGLError("logicCycle");
     }
 	
@@ -90,10 +97,12 @@ public class GraphicContext {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         
-    	GL20.glUseProgram(ShaderContext.getHandle());
-    	
+    	GL20.glUseProgram(ShaderContext.getShipShaderHandle());
 		instance.drawables.stream().forEach(d -> drawObject(d));
-
+		
+        GL20.glUseProgram(ShaderContext.getParticleShaderHandle());
+        instance.particleSystems.stream().forEach((ps) -> drawParticleSystem(ps));
+        
         GL20.glUseProgram(0);
 	}
 	
@@ -126,15 +135,34 @@ public class GraphicContext {
         GL30.glBindVertexArray(0);
 	}
 	
-	public static void addDrawable(DrawableObject drawable) {
+	private static void drawParticleSystem(DrawableParticleSystem particleSystem) {
+		GL30.glBindVertexArray(particleSystem.getVaoId());
+        GL20.glEnableVertexAttribArray(0);
+        GL20.glEnableVertexAttribArray(1);
+        GL20.glEnableVertexAttribArray(2);
+		GL31.glDrawArraysInstanced(GL11.GL_TRIANGLE_STRIP, 0, 4, particleSystem.getParticules().size());
+        GL20.glDisableVertexAttribArray(0);
+        GL20.glDisableVertexAttribArray(1);
+        GL20.glDisableVertexAttribArray(2);
+        GL30.glBindVertexArray(0);
+	}
+	
+	public static void addDrawableObject(DrawableObject drawable) {
 		checkInstance();
 		instance.drawables.add(drawable);
+	}
+	
+	public static void addDrawableParticleSystem(DrawableParticleSystem drawable) {
+		checkInstance();
+		instance.particleSystems.add(drawable);
 	}
 	
 	public static void destroyDrawables() {
 		checkInstance();
 		instance.drawables.stream().forEach(DrawableObject::destroy);
 		instance.drawables.clear();
+		instance.particleSystems.stream().forEach(DrawableParticleSystem::destroy);
+		instance.particleSystems.clear();
 	}
 	
     public static void addCameraMovement(float movement) {
@@ -161,6 +189,7 @@ public class GraphicContext {
 	public static void destroy() {
 		checkInstance();
 		instance.drawables.stream().forEach(DrawableObject::destroy);
+		instance.particleSystems.stream().forEach(DrawableParticleSystem::destroy);
 		ShaderContext.destroy();
 		TextureContext.destroy();
 		instance = null;

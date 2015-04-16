@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package fr.kouignamann.battlestar.core.controlers;
 
 import static fr.kouignamann.battlestar.core.commons.GameConstant.*;
@@ -11,8 +5,6 @@ import static fr.kouignamann.battlestar.core.commons.GameConstant.*;
 import org.lwjgl.input.Keyboard;
 
 import fr.kouignamann.battlestar.core.graphics.Drawables;
-
-//import org.lwjgl.input.Keyboard;
 
 /**
  *
@@ -37,6 +29,11 @@ public class KeyboardListener implements Listener {
                 && keyHitNanoTime + KEY_HIT_COOLDOWN < System.nanoTime()) {
             keyHitNanoTime = System.nanoTime();
             Drawables.loadPreviousShip();
+        }
+        if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0)
+                && keyHitNanoTime + KEY_HIT_COOLDOWN < System.nanoTime()) {
+            keyHitNanoTime = System.nanoTime();
+            Drawables.loadSimpleParticleSystem();
         }
     }
 }
