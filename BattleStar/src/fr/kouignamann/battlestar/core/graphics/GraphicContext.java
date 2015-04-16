@@ -34,6 +34,8 @@ public class GraphicContext {
 	private Camera camera;
 	private DirectionalLight sunLight;
 	
+	private long lastComputedSceneMillis;
+	
 	private GraphicContext() {
 		super();
 		drawables = new ArrayList<DrawableObject>();
@@ -84,10 +86,13 @@ public class GraphicContext {
     
     public static void compute() {
         GraphicContext.checkInstance();
+        long timeMillis = System.currentTimeMillis();
+        long deltaTime = timeMillis - instance.lastComputedSceneMillis;
         instance.camera.compute();
         ShaderContext.pushCameraMatrices(instance.camera);
         ShaderContext.pushSunLight(instance.sunLight);
-        instance.particleSystems.stream().forEach((ps) -> ps.compute(0));
+        instance.particleSystems.stream().forEach((ps) -> ps.compute(deltaTime));
+        instance.lastComputedSceneMillis = timeMillis;
         GraphicContext.exitOnGLError("logicCycle");
     }
 	

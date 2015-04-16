@@ -18,11 +18,12 @@ public class GameConstant {
     
     // PARTICULES
     public static int 			MAX_PRTICULES_PER_SYSTEM	= 100000;
+    public static int 			MAX_NEW_PRTICULES_PER_LOOP	= 15;
     public static float[]		SIMPLE_PARTICULE_VERTICES	= new float[] {
-	    															-5f, -5f, 0.0f, 1.0f,
-															    	5f, -5f, 0.0f, 1.0f,
-															    	-5f, 5f, 0.0f, 1.0f,
-															    	5f, 5f, 0.0f, 1.0f};
+	    															-0.5f, -0.5f, 0.0f, 1.0f,
+	    															0.5f, -0.5f, 0.0f, 1.0f,
+															    	-0.5f, 0.5f, 0.0f, 1.0f,
+															    	0.5f, 0.5f, 0.0f, 1.0f};
     
     // CONTROLERS
     public static long			KEY_HIT_COOLDOWN    		= 200000000;

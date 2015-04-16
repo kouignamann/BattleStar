@@ -92,15 +92,13 @@ public class DrawableUtils {
 
 		int positionBufferId = GL15.glGenBuffers();
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, positionBufferId);
-		FloatBuffer positionBuffer = BufferUtils.createFloatBuffer(4*MAX_PRTICULES_PER_SYSTEM);
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, positionBuffer, GL15.GL_STREAM_DRAW);
+		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, DrawableParticleSystem.EMPTY_MAX_PARTICLES_BUFFER, GL15.GL_STREAM_DRAW);
         GL20.glVertexAttribPointer(1, 4, GL11.GL_FLOAT, false, 0, 0);
 		GL33.glVertexAttribDivisor(1, 1);
 
 		int colorBufferId = GL15.glGenBuffers();
 		GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER, colorBufferId);
-		FloatBuffer colorBuffer = BufferUtils.createFloatBuffer(4*MAX_PRTICULES_PER_SYSTEM);
-		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, colorBuffer, GL15.GL_STREAM_DRAW);
+		GL15.glBufferData(GL15.GL_ARRAY_BUFFER, DrawableParticleSystem.EMPTY_MAX_PARTICLES_BUFFER, GL15.GL_STREAM_DRAW);
         GL20.glVertexAttribPointer(2, 4, GL11.GL_FLOAT, false, 0, 0);
 		GL33.glVertexAttribDivisor(2, 1);
         
